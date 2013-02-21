@@ -88,9 +88,9 @@ var TitleScreen = me.ScreenObject.extend(
 		this.arrow.pos.y = this.menuItems[this.selectedItem].y;
 		
 		// add a parallax background
-		me.game.add(new me.ImageLayer("p_layer1", 0,0, "p_layer1", 1, 1));
-		me.game.add(new me.ImageLayer("p_layer2", 0,0, "p_layer2", 2, 2));
-		me.game.add(new me.ImageLayer("p_layer3", 0,0, "p_layer3", 3, 3));
+		me.game.add(new me.ImageLayer("layer1", 0,0, "layer1", 1, 1));
+		me.game.add(new me.ImageLayer("layer2", 0,0, "layer2", 2, 2));
+		me.game.add(new me.ImageLayer("layer3", 0,0, "layer3", 3, 3));
 		
 		// add the arrow
 		me.game.add(this.arrow,10);
@@ -251,9 +251,9 @@ CreditsScreen = me.ScreenObject.extend(
 			this.font.set("left");
 		}
 		
-		me.game.add(new me.ImageLayer("p_layer1", 0,0, "p_layer1", 1, 1));
-		me.game.add(new me.ImageLayer("p_layer2", 0,0, "p_layer2", 2, 2));
-		me.game.add(new me.ImageLayer("p_layer3", 0,0, "p_layer3", 3, 3));
+		me.game.add(new me.ImageLayer("layer1", 0,0, "layer1", 1, 1));
+		me.game.add(new me.ImageLayer("layer2", 0,0, "layer2", 2, 2));
+		me.game.add(new me.ImageLayer("layer3", 0,0, "layer3", 3, 3));
 		
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.ENTER,	"enter", true);
@@ -374,16 +374,16 @@ SettingsScreen = me.ScreenObject.extend(
 		this.tween = new me.Tween(this.arrow.pos).to({x: 90 }, 400).onComplete(this.tweenbw.bind(this)).start();
 
 		// add the parallax background
-		me.game.add(new me.ImageLayer("p_layer1", 0,0, "p_layer1", 1, 1));
-		me.game.add(new me.ImageLayer("p_layer2", 0,0, "p_layer2", 2, 2));
-		me.game.add(new me.ImageLayer("p_layer3", 0,0, "p_layer3", 3, 3));
+		me.game.add(new me.ImageLayer("layer1", 0,0, "layer1", 1, 1));
+		me.game.add(new me.ImageLayer("layer2", 0,0, "layer2", 2, 2));
+		me.game.add(new me.ImageLayer("layer3", 0,0, "layer3", 3, 3));
 				
 		// add the arrow
 		me.game.add(this.arrow,10);
 
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.ENTER,	"enter", true);
-		me.input.bindKey(me.input.KEY.X,			"enter", true);
+		me.input.bindKey(me.input.KEY.X,		"enter", true);
 		me.input.bindKey(me.input.KEY.ESC,		"exit", true);
 	},
 	
