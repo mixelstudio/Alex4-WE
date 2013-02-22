@@ -152,14 +152,16 @@ var PlayScreen = me.ScreenObject.extend(
 			me.game.HUD.addItem("eggs",	  new HUDEggObject		(310, 4));
 			me.game.HUD.addItem("score",  new HUDScoreObject	(640, 2));
 			
+			/*
 			try 
 			{
-				//inform TapJS we start a new game
+				//inform  we start a new game
 				tapjs.play()
 			} 
 			catch(e){};
+			*/
 		}
-		
+			
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.LEFT,		"left");
 		me.input.bindKey(me.input.KEY.RIGHT,	"right");
@@ -230,6 +232,7 @@ var PlayScreen = me.ScreenObject.extend(
 		---										*/
 	onGameEnd: function()
 	{
+		/*
 		try 
 		{
 			//save our score
@@ -237,7 +240,7 @@ var PlayScreen = me.ScreenObject.extend(
 			tapjsHighScores.save(me.game.HUD.getItemValue("score"), "Level "+me.game.currentLevel.levelid, "yes");
 		} 
 		catch(e){};
-
+		*/
 	},
 	
 	/* ---

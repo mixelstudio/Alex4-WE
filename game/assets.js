@@ -47,18 +47,18 @@ var g_resources= [
 	{name: "menu",				type: "audio", src: "data/audio/sfx/",	channel : 2},
 	{name: "jump",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "cherry",			type: "audio", src: "data/audio/sfx/",	channel : 2},
-	{name: "xtralife",		type: "audio", src: "data/audio/sfx/",	channel : 1},
-	{name: "heart",			type: "audio", src: "data/audio/sfx/",	channel : 1},
+	{name: "xtralife",			type: "audio", src: "data/audio/sfx/",	channel : 1},
+	{name: "heart",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "star",				type: "audio", src: "data/audio/sfx/",	channel : 2},
 	{name: "eat",				type: "audio", src: "data/audio/sfx/",	channel : 1},
-	{name: "stomp",			type: "audio", src: "data/audio/sfx/",	channel : 1},
+	{name: "stomp",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "hurt",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "die",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	//{name: "engine",			type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "turn",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "impact",			type: "audio", src: "data/audio/sfx/",	channel : 1},
-	{name: "point",			type: "audio", src: "data/audio/sfx/",	channel : 1},
-	{name: "crush",			type: "audio", src: "data/audio/sfx/",	channel : 1},
+	{name: "point",				type: "audio", src: "data/audio/sfx/",	channel : 1},
+	{name: "crush",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "hit",				type: "audio", src: "data/audio/sfx/",	channel : 1},
 	{name: "kill",				type: "audio", src: "data/audio/sfx/",	channel : 2},
 	
@@ -74,14 +74,14 @@ var g_resources= [
 	
 	
 	// audio Tracks
-	{name: "Menu_Song",		type: "audio", src: "data/audio/music/",	channel : 1},
-	{name: "Level_Start",	type: "audio", src: "data/audio/music/",	channel : 1},
+	{name: "Menu_Song",			type: "audio", src: "data/audio/music/",	channel : 1},
+	{name: "Level_Start",		type: "audio", src: "data/audio/music/",	channel : 1},
 	{name: "Level_Song",		type: "audio", src: "data/audio/music/",	channel : 1},
 	{name: "Boss_Start",		type: "audio", src: "data/audio/music/",	channel : 1},
-	{name: "Boss_Song",		type: "audio", src: "data/audio/music/",	channel : 1},
-	{name: "Game_Over",		type: "audio", src: "data/audio/music/",	channel : 1},
+	{name: "Boss_Song",			type: "audio", src: "data/audio/music/",	channel : 1},
+	{name: "Game_Over",			type: "audio", src: "data/audio/music/",	channel : 1},
 	{name: "Level_Done",		type: "audio", src: "data/audio/music/",	channel : 1},
-	{name: "Player_Dies",	type: "audio", src: "data/audio/music/",	channel : 1},
+	{name: "Player_Dies",		type: "audio", src: "data/audio/music/",	channel : 1},
 	
 	/*
 	{name: "Intro_Song",		type: "audio", src: "data/audio/music/",	channel : 1},
