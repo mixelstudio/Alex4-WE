@@ -4,7 +4,7 @@ Alex the Allegator 4 - Web Edition
 an HTML5 remake of the classic "Alex the allegator 4" game.
 made using the [melonJS](http://www.melonjs.org) game library
 
-Play it [here](http://obiot.github.com/Alex4-WE/) !
+Play it [here](http://melonjs.github.com/Alex4-WE/) !
 	
 Credits 
 ----------------------------------------------------------
