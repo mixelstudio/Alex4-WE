@@ -47,20 +47,20 @@ var PlayerEntity = me.ObjectEntity.extend(
 		this.updateColRect(16,32, 4,60);
 		
 		// walking animatin
-		this.addAnimation ("walk", [0,1,2,3,4,5]);
+		this.renderable.addAnimation ("walk", [0,1,2,3,4,5]);
 		// dead animatin
-		this.addAnimation ("eat", [6,6]);
+		this.renderable.addAnimation ("eat", [6,6]);
 		// roll animatin
-		this.addAnimation ("roll", [7,8,9,10]);
+		this.renderable.addAnimation ("roll", [7,8,9,10]);
 		
 		// set default one
-		this.setCurrentAnimation("walk");
+		this.renderable.setCurrentAnimation("walk");
+		
+		// set the renderable position to bottom center
+		this.anchorPoint.set(0.5, 1.0);
 		
 		// to know when we fall out of the game (is this correct? no !!)
-		this.ylimit = me.game.currentLevel.tileheight*7;
-		
-		// link to the game viewport
-		//this.viewport = me.game.viewport;
+		this.ylimit = me.game.currentLevel.height;
 		
 		// set a callback
 		this.onTileBreak = function(){me.audio.play("crush", false);}
@@ -70,6 +70,9 @@ var PlayerEntity = me.ObjectEntity.extend(
 		
 		// to know if we are rolling
 		this.isRolling = false;
+		
+		// always update
+		this.alwaysUpdate = true;
 	},
 		
 	/* -----
@@ -155,7 +158,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 								this.halfJump();
 							} 
 						}
-						else if (!this.flickering && !this.isRolling)
+						else if (!this.renderable.flickering && !this.isRolling)
 						{
 							this.touch();
 						}
@@ -166,7 +169,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 					{
 						// change to eat animation, and switch to walk when finished
 						if (!this.isRolling)
-						  this.setCurrentAnimation("eat", "walk");
+						  this.renderable.setCurrentAnimation("eat", "walk");
 					}
 					break;
 					
@@ -195,7 +198,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 				}
 			}
 			
-			if (updated || !this.isCurrentAnimation("walk"))
+			if (updated || !this.renderable.isCurrentAnimation("walk"))
 			{
 				// update objet animation
 				this.parent();
@@ -216,7 +219,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 		me.audio.play("turn", false);
 			
 		this.canBreakTile = true;
-		this.setCurrentAnimation("roll");
+		this.renderable.setCurrentAnimation("roll");
 		this.isRolling = true;
 		
 		// walking & jumping speed
@@ -238,7 +241,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 		me.audio.play("impact", false);
 		
 		this.canBreakTile = false;
-		this.setCurrentAnimation("walk");
+		this.renderable.setCurrentAnimation("walk");
 		this.isRolling = false;
 		
 		// cancel current velocity
@@ -292,7 +295,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 		// no life left
 		if (me.game.HUD.getItemValue("life") == 0)
 		{
-			this.flicker(40,function(){me.game.remove(this)});
+			this.renderable.flicker(40,(function(){me.game.remove(this)}).bind(this));
 			
 			me.game.HUD.reset("energy");
 			me.game.HUD.reset("eggs");
@@ -306,7 +309,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 			me.audio.play("Player_Dies");
 			
 			// flick & respawn :)
-			this.flicker(40, function()	{
+			this.renderable.flicker(40, (function() {
 				// reset all
 				//me.game.HUD.resetAll();
 				me.game.HUD.reset("energy");
@@ -320,7 +323,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 				// restart the music
 				// play level song
 				me.state.current().playLevelSong();
-			});
+			}).bind(this));
 		}	
 	
 	},
@@ -342,7 +345,7 @@ var PlayerEntity = me.ObjectEntity.extend(
 			// ouch
 			me.audio.play("hurt", false);
 			// flicker !
-			this.flicker(me.sys.fps * 2);
+			this.renderable.flicker(me.sys.fps * 2);
 			
 		}
 	}
@@ -364,22 +367,20 @@ var GenericEnemyEntity = me.ObjectEntity.extend(
 		this.walkLeft = true;
 
 		// collision detection setup for this object
-		this.collisionEnable = true;
+		this.collidable = true;
+		this.type = me.game.ENEMY_OBJECT;
 		
 		// walking & jumping speed
 		this.setVelocity(2, 16);
-		
-		this.collidable = true;
-		
-		this.type = me.game.ENEMY_OBJECT;
-		
-		//this.shakeX = 4;
 				
 		// to know when we fall out of the game (is this correct?)
-		this.ylimit = me.game.currentLevel.tileheight*7;
+		this.ylimit = me.game.currentLevel.height;
 		
-			// to record the Time of Death
+		// to record the Time of Death
 		this.ToD = 0;
+		
+		// set the renderable position to bottom center
+		this.anchorPoint.set(0.5, 1.0);
 	},
 	
 	// make him (try to) ressurect
@@ -391,7 +392,7 @@ var GenericEnemyEntity = me.ObjectEntity.extend(
 			if (now > 3000) // 5 sec ?
 			{	
 				this.type = me.game.ENEMY_OBJECT;
-				this.setCurrentAnimation("walk");
+				this.renderable.setCurrentAnimation("walk");
 				this.alive = true;
 				return
 			}
@@ -425,7 +426,7 @@ var GenericEnemyEntity = me.ObjectEntity.extend(
 				// make it dead
 				this.alive = false;
 				// set dead animation
-				this.setCurrentAnimation("dead");
+				this.renderable.setCurrentAnimation("dead");
 				
 				// record time of death
 				this.ToD = me.timer.getTime();
@@ -462,8 +463,6 @@ var GenericEnemyEntity = me.ObjectEntity.extend(
 		// make it dead
 		this.alive = false;
 		// flip the player vertically	
-		this.collisionEnable = false;
-		//
 		this.flipY(true);
 		// make it jump
 		this.forceJump();
@@ -471,7 +470,7 @@ var GenericEnemyEntity = me.ObjectEntity.extend(
 		this.ToD = me.timer.getTime();
 	
 		// flicker until dead
-		this.flicker(me.sys.fps, function()	{
+		this.renderable.flicker(me.sys.fps, (function()	{
 			if (!this.alive)
 			{				
 				// miam miam
@@ -482,7 +481,7 @@ var GenericEnemyEntity = me.ObjectEntity.extend(
 			// reset all
 			//me.game.HUD.resetAll();
 			me.game.remove(this);
-		});
+		}).bind(this));
 		
 	}
 
@@ -507,13 +506,13 @@ var Enemy1Entity = GenericEnemyEntity.extend(
 		
 		// walking animatin
 		//this.addAnimation ("walk", [0,1,2,3,4,5]);
-		this.addAnimation ("walk", [0,4,1,2]);
+		this.renderable.addAnimation ("walk", [0,4,1,2]);
 		
 		// dead animatin
-		this.addAnimation ("dead", [6]);
+		this.renderable.addAnimation ("dead", [6]);
 		
 		// set default one
-		this.setCurrentAnimation("walk");
+		this.renderable.setCurrentAnimation("walk");
 		
 		// bounding box
 		this.updateColRect(8,48, 4,60);
@@ -522,11 +521,7 @@ var Enemy1Entity = GenericEnemyEntity.extend(
 		
 	// manage the enemy movement
 	update : function ()
-	{
-		// do nothing if not visible
-		if (!this.inViewport)
-			return false;
-		
+	{		
 		if (this.alive)
 			// make him walk !
 			this.doWalk(this.walkLeft);
@@ -535,33 +530,23 @@ var Enemy1Entity = GenericEnemyEntity.extend(
 		
 		// check & update movement
 		this.updateMovement();
-		// check if position changed
-		var updated = (this.vel.x!=0 || this.vel.y!=0)
-			
 		
-		if (this.alive)
-		{
+		if (this.alive) {
 			// since we apply a x velocity at each update,
 			// if vel.x == 0 mean we hit something
 			this.walkLeft = (this.vel.x == 0)?!this.walkLeft:this.walkLeft;
 		}
 		
 		// check if we fall somewhere 
-		if (this.pos.y > this.ylimit)
-		{
+		if (!this.pos.y > this.ylimit) {
 			//console.log("i'm dead");
 			me.game.remove(this);
 		}
-		else if (updated)
-		{
-			// update the object animation
-			this.parent();
-		}
 		
 		if (!this.alive)
-		 this.unDie();
+		   this.unDie();
 		
-		return updated;
+		return this.parent();
 	}
 });
 /*********************************************************************************/
@@ -589,15 +574,15 @@ var Enemy2Entity = GenericEnemyEntity.extend(
 		this.walkLeft = true;
 	
 		// bounding box
-		this.updateColRect(8,48, 12,64);	
+		this.updateColRect(8,48, 12,52);	
 		
 		// walking animatin
-		this.addAnimation ("walk", [0,1,2,1,3]);
+		this.renderable.addAnimation ("walk", [0,1,2,1,3]);
 		// dead animatin
-		this.addAnimation ("dead", [4]);
+		this.renderable.addAnimation ("dead", [4]);
 		
 		// set default one
-		this.setCurrentAnimation("walk");
+		this.renderable.setCurrentAnimation("walk");
 	},
 		
 	// manage the enemy movement
@@ -669,19 +654,18 @@ var Boss1Entity = me.ObjectEntity.extend(
 		this.walkLeft = true;
 
 		// collision detection setup for this object
-		this.collisionEnable = true;
+		this.collidable = true;
+		this.type = "boss1";
 		
 		// walking & jumping speed
 		this.setVelocity(2, 6);
-		
-		this.collidable = true;
-		
-		this.type = "boss1";
 		
 		// bounding box
 		this.updateColRect(-1,0,28 ,100);
 		
 		this.energy = 4;
+		
+		this.alwaysUpdate = true;
 		
 		//this.audioPlaying = false;
 	},
@@ -715,26 +699,25 @@ var Boss1Entity = me.ObjectEntity.extend(
 		
 		if (this.energy > 0)
 		{	
-			this.collidable = false;
-			this.flicker(me.sys.fps,this.undie.bind(this));
+			this.alive = true;
+			this.renderable.flicker(me.sys.fps,this.undie.bind(this));
 		}
 		else
 		{
 			this.alive = false;
-			this.collidable = false;
 			this.flipY(true);
 			this.forceJump();
-			this.flicker(me.sys.fps/2,function() {
+			this.renderable.flicker(me.sys.fps/2,(function() {
 				me.game.remove(this);
 				me.state.change(me.state.READY, "a4_game_end");
-			});
+			}).bind(this));
 		}
 	},
 	
 	// collision notification
 	undie : function ()
 	{
-		this.collidable = true;
+		this.alive = true;
 	},
 
 	
@@ -779,7 +762,7 @@ var Boss1Entity = me.ObjectEntity.extend(
 /*		a Canon Entity																						*/
 /*																												*/
 /************************************************************************************/
-var CanonEntity = me.InvisibleEntity.extend(
+var CanonEntity = me.ObjectEntity.extend(
 {	
 	init: function(x, y, settings)
 	{
@@ -829,7 +812,6 @@ var BulletEntity = me.ObjectEntity.extend(
 		this.parent(x, y , settings);
 		
 		// collision detection setup for this object
-		this.collisionEnable = true;
 		this.collidable = true;
 		this.type = me.game.ENEMY_OBJECT;
 		this.visible = true;
@@ -866,7 +848,7 @@ var BulletEntity = me.ObjectEntity.extend(
 /*		a Spikee Entity																					*/
 /*																												*/
 /************************************************************************************/
-var SpikeEntity = me.InvisibleEntity.extend(
+var SpikeEntity = me.ObjectEntity.extend(
 {
 	init:function(x, y, settings)
 	{
@@ -1242,6 +1224,7 @@ var LetsGoMessage = me.SpriteObject.extend(
 		this.parent(x, y, me.loader.getImage("lets_go_msg"));
 		
 		this.floating = true;
+		this.alwaysUpdate = true;
 		
 		//console.log(me.game.viewport.pos.x);
 		this.pos.x = ((me.game.viewport.width - this.image.width)/2);
@@ -1251,7 +1234,7 @@ var LetsGoMessage = me.SpriteObject.extend(
 		this.font = new me.BitmapFont("atascii_32px", 32);
 		this.font.set("left");
 		this.leveltitle = me.game.currentLevel.label.toUpperCase();
-		this.size = (this.font.measureText(this.leveltitle)).width;
+		this.size = (this.font.measureText(me.video.getSystemContext(),this.leveltitle)).width;
 		this.labelx = 0 - this.size;
 
 		// add a tween for the let's go message message
@@ -1269,25 +1252,16 @@ var LetsGoMessage = me.SpriteObject.extend(
 	{
 		// tween out
 		this.tween.easing(me.Tween.Easing.Circular.EaseOut);
-		this.tween.to({y: me.game.currentLevel.realheight}, 1500).start();
-		this.tween.onComplete(this.AnimFinished.bind(this));
+		this.tween.to({y: me.game.currentLevel.height}, 1500).start();
+		this.tween.onComplete((function(){
+			me.game.remove(this);}
+		).bind(this));
 		// and text 
 		this.texttween.to({labelx: me.game.viewport.width}, 500).start();
 	},
 	
-	AnimFinished : function()
+	draw : function(context) 
 	{
-		//console.log("FINISHED let go ");
-		//this.tween.destroy();
-		//this.texttween.destroy();
-		me.game.remove(this);
-	},
-	
-	draw : function(context)
-	{
-		// !!there is a bug where the viewport is not initialized before object creation
-		this.pos.x = me.game.viewport.pos.x + ((me.game.viewport.width - this.image.width)/2);
-		
 		this.parent(context);
 		this.font.draw(context, this.leveltitle, this.labelx, 250);
 	}
@@ -1324,7 +1298,7 @@ var gameOverMessage = me.SpriteObject.extend(
 /*		a game end message																				*/
 /*																												*/
 /************************************************************************************/
-var GameEndMessage = me.InvisibleEntity.extend(
+var GameEndMessage = me.ObjectEntity.extend(
 {	
 
 	init:function(x, y, callback)

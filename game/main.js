@@ -14,7 +14,7 @@
 var jsApp	= 
 {	
 	// Alex version
-	version : "1.5",
+	version : "1.6",
 	
 	objRef  : null,
 	
@@ -27,16 +27,13 @@ var jsApp	=
 		---			*/
 	onload: function()
 	{
-		//me.debug.renderHitBox = true;
-		
 		// initialize the video
 		if (!me.video.init('jsapp', 640, 480))
 		{
 			alert("Sorry but your browser does not support html 5 canvas. Please try with another one!");
 			return;
 		}
-		
-				
+						
 		// initialize the "audio"
 		me.audio.init("mp3,ogg");
 		

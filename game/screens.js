@@ -530,7 +530,7 @@ LevelCompleteScreen  = me.ScreenObject.extend(
 		this.tween.easing(me.Tween.Easing.Bounce.EaseOut);
 		
 		// create a new canvas 
-		this.background = me.video.applyRGBFilter(me.video.getScreenCanvas(), "brightness", 0.7);
+		this.background = me.video.applyRGBFilter(me.video.getSystemCanvas(), "brightness", 0.7);
 		
 		// point to be added to global scores
 		this.levelpoint = jsApp.levelid * 100;
@@ -646,31 +646,31 @@ LevelCompleteScreen  = me.ScreenObject.extend(
 		context.drawImage(this.title, (context.canvas.width  - this.title.width) / 2, this.postitle);
 		
 		/* draw the 4 caterogies title, left align */
-		this.font.set("left");
+		this.font.textAlign = "left";
 		this.font.draw (context, "LEVEL",    4,	200);
 		this.font.draw (context, "LIFES",	 4,	260);
 		this.font.draw (context, "STARS",	 4,	320);
-		this.font.draw (context, "CHERRIES", 4,   380);
+		this.font.draw (context, "CHERRIES", 4, 380);
 		
 		/* draw the current value */
-		this.font.set("right");
-		this.font.draw (context, me.game.currentLevel.levelid,			336, 200);
+		this.font.textAlign = "right";
+		this.font.draw (context, jsApp.levelid,	336, 200);
 		this.font.draw (context, me.game.HUD.getItemValue("life"),		336, 260);
 		this.font.draw (context, me.gamestat.getItemValue("stars"),		336, 320);
 		this.font.draw (context, me.gamestat.getItemValue("cherries"), 336, 380);
 		
 		/* draw the calucl */
-		this.font.set("right");
+		this.font.textAlign ="right";
 		this.font.draw (context, "X100=", 496, 200);
 		this.font.draw (context, "X100=", 496, 260);
 		this.font.draw (context, "X100=", 496, 320);
 		this.font.draw (context, "X100=", 496, 380);
 		
 		/* draw the result */
-		this.font.set("right");
-		this.font.draw (context, this.levelpoint,		640, 200);
-		this.font.draw (context, this.livespoint,		640, 260);
-		this.font.draw (context, this.starspoint,		640, 320);
+		this.font.textAlign ="right";
+		this.font.draw (context, this.levelpoint,	 640, 200);
+		this.font.draw (context, this.livespoint,	 640, 260);
+		this.font.draw (context, this.starspoint,	 640, 320);
 		this.font.draw (context, this.cherriespoint, 640, 380);
 	
 	},
