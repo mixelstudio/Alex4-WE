@@ -28,10 +28,16 @@ var jsApp	=
 	onload: function()
 	{
 		// initialize the video
-		if (!me.video.init('jsapp', 640, 480))
-		{
+		if (!me.video.init('jsapp', 640, 480)) {
 			alert("Sorry but your browser does not support html 5 canvas. Please try with another one!");
 			return;
+		}
+		
+		// add "#debug" to the URL to enable the debug Panel
+		if (document.location.hash === "#debug") {
+			window.onReady(function () {
+				me.plugin.register.defer(debugPanel, "debug");
+			});
 		}
 						
 		// initialize the "audio"
