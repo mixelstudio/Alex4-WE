@@ -3,12 +3,7 @@
  * Port of "Alex the Allegator 4" (c) 2003 Johan Peitz / Free Lunch Design.
  * GPL-2.0-or-later, as is the original game — see `LICENSE`.
  */
-import {
-	type Application,
-	event,
-	PixelateTransitionEffect,
-	state,
-} from "melonjs";
+import { type Application, PixelateTransitionEffect, state } from "melonjs";
 import { FADE_COLOR } from "./constants";
 
 /*---------------------------------------------------------------------
@@ -24,8 +19,8 @@ const BIGGEST = 32;
 const HALF = 300;
 
 let app: Application;
-// a change is on its way: the next one waits for it (a second change asked
-// for while the screen is covered would leave it covered, melonJS#1787)
+// a level is reloading behind the pixels: a change of screen waits, or the
+// level would land on the next screen (level.load defers it a frame)
 let busy = false;
 
 /**
@@ -38,17 +33,14 @@ export function initTransitions(application: Application) {
 	state.setTransition(state.READY, false);
 }
 
-/** go to another screen, through the pixels */
+/**
+ * go to another screen, through the pixels (asked again while they cover the
+ * screen, the last screen asked for wins)
+ */
 export function go(stateId: number) {
-	// already there: no change, and so nothing would ever clear `busy`
-	if (busy || state.isCurrent(stateId)) {
-		return;
+	if (!busy) {
+		state.change(stateId);
 	}
-	busy = true;
-	event.once(event.STATE_CHANGE, () => {
-		busy = false;
-	});
-	state.change(stateId);
 }
 
 /** do something on the same screen, behind the biggest pixels */
