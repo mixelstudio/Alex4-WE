@@ -18,7 +18,7 @@ import {
 } from "melonjs";
 import { gameState } from "../gameState";
 import type { PlayScreen } from "../screens/play";
-import { burst } from "./effects";
+import { burst, shake } from "./effects";
 import { PlayerEntity, type Touch } from "./player";
 import { CannonBall } from "./projectiles";
 
@@ -126,6 +126,7 @@ export class Breakable extends Renderable {
 		this.parentApp.world.removeChild(this);
 
 		burst(this.parentApp.world, this.pos.x + 32, this.pos.y + 32, 32);
+		shake(this.parentApp.viewport, "shatter");
 		audio.play("crush");
 	}
 }

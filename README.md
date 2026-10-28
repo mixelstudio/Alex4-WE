@@ -12,9 +12,9 @@ levels, both guardians, the intro and the ending.
 It is a modernized Alex 4 that stays true to the original: the same levels, the
 same four-color graphics, music and rules, at the original's pace. What it adds
 is game feel: Alex squashes as he lands, the action freezes for a split second
-on every stomp and every blow to a guardian, pickups sparkle, dust flies, the
-ball leaves a trail, the jungle sways, the water ripples and the screen breaks
-into big pixels between scenes.
+on every stomp and every blow to a guardian, the screen shakes on the big
+impacts, pickups sparkle, dust flies, the ball leaves a trail, the jungle sways,
+the water ripples and the screen breaks into big pixels between scenes.
 
 ![Alex in the jungle](public/images/og.png)
 
