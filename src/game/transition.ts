@@ -1,0 +1,78 @@
+/**
+ * Alex the Allegator 4 — Web Edition.
+ * Port of "Alex the Allegator 4" (c) 2003 Johan Peitz / Free Lunch Design.
+ * GPL-2.0-or-later, as is the original game — see `LICENSE`.
+ */
+import {
+	type Application,
+	event,
+	PixelateTransitionEffect,
+	state,
+} from "melonjs";
+import { FADE_COLOR } from "./constants";
+
+/*---------------------------------------------------------------------
+
+	The screen breaks up into big pixels, changes behind the biggest of
+	them, and comes back.
+
+  ---------------------------------------------------------------------	*/
+
+// the biggest blocks, at the middle of a transition (8 pixels of the original)
+const BIGGEST = 32;
+// how long the screen takes to break up, and as long to come back
+const HALF = 300;
+
+let app: Application;
+// a change is on its way: the next one waits for it (a second change asked
+// for while the screen is covered would leave it covered, melonJS#1787)
+let busy = false;
+
+/**
+ * every change of screen goes through the pixels, but for the level complete
+ * one, which comes straight after the level
+ */
+export function initTransitions(application: Application) {
+	app = application;
+	state.transition("pixelate", FADE_COLOR, HALF, BIGGEST);
+	state.setTransition(state.READY, false);
+}
+
+/** go to another screen, through the pixels */
+export function go(stateId: number) {
+	if (busy) {
+		return;
+	}
+	busy = true;
+	event.once(event.STATE_CHANGE, () => {
+		busy = false;
+	});
+	state.change(stateId);
+}
+
+/** do something on the same screen, behind the biggest pixels */
+export function pixelate(middle: () => void) {
+	if (busy) {
+		return;
+	}
+	busy = true;
+	const options = { renderer: app.renderer, size: BIGGEST, duration: HALF };
+	const camera = app.viewport;
+	const cover = new PixelateTransitionEffect(camera, {
+		...options,
+		onComplete: () => {
+			camera.removeCameraEffect(cover);
+			middle();
+			app.viewport.addCameraEffect(
+				new PixelateTransitionEffect(app.viewport, {
+					...options,
+					direction: "reveal",
+					onComplete: () => {
+						busy = false;
+					},
+				}),
+			);
+		},
+	});
+	camera.addCameraEffect(cover);
+}

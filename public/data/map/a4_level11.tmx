@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="200" height="8" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#dfedd2">
+ <properties>
+  <property name="label" value="The enemy's nest"/>
+  <property name="levelid" type="int" value="11"/>
+  <property name="win" type="int" value="1"/>
+  <property name="boss" type="int" value="0"/>
+ </properties>
+ <tileset firstgid="1" name="a4_tiles" tilewidth="64" tileheight="64" spacing="0" margin="0" tilecount="96" columns="12">
+  <image source="a4_tiles.png" width="768" height="512"/>
+ </tileset>
+ <tileset firstgid="97" name="a4_water" tilewidth="64" tileheight="64" tilecount="12" columns="12">
+  <image source="a4_water.png" width="768" height="64"/>
+  <tile id="0">
+   <animation>
+    <frame tileid="0" duration="80"/>
+    <frame tileid="1" duration="80"/>
+    <frame tileid="2" duration="80"/>
+    <frame tileid="3" duration="80"/>
+   </animation>
+  </tile>
+  <tile id="4">
+   <animation>
+    <frame tileid="4" duration="80"/>
+    <frame tileid="5" duration="80"/>
+    <frame tileid="6" duration="80"/>
+    <frame tileid="7" duration="80"/>
+    <frame tileid="8" duration="80"/>
+    <frame tileid="9" duration="80"/>
+    <frame tileid="10" duration="80"/>
+    <frame tileid="11" duration="80"/>
+   </animation>
+  </tile>
+ </tileset>
+ <imagelayer id="1" name="layer1" parallaxx="0.25" parallaxy="0" repeatx="1" repeaty="1">
+  <image source="../img/layer1.png" width="256" height="256"/>
+ </imagelayer>
+ <imagelayer id="2" name="layer2" parallaxx="0.35" parallaxy="0" repeatx="1">
+  <image source="../img/layer2.png" width="320" height="384"/>
+ </imagelayer>
+ <imagelayer id="3" name="layer3" parallaxx="0.5" parallaxy="0" repeatx="1">
+  <image source="../img/layer3.png" width="640" height="480"/>
+ </imagelayer>
+ <layer id="4" name="Foreground" width="200" height="8">
+  <data encoding="csv">
+27,47,47,47,47,47,47,47,27,0,14,0,0,0,0,71,0,0,71,0,0,0,0,14,0,0,0,71,0,0,0,0,71,0,0,0,0,71,0,0,63,64,0,66,67,0,0,79,0,0,79,0,0,0,0,0,80,0,80,0,0,0,79,0,80,79,0,0,0,19,20,20,20,20,20,20,20,21,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,58,59,60,59,58,58,58,0,0,0,0,0,0,0,0,0,80,0,0,0,79,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,0,48,47,48,0,48,47,47,47,47,47,47,47,27,0,0,0,0,68,69,0,0,0,0,63,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,27,0,0,0,0,0,0,61,62,0,0,0,19,21,0,0,0,0,0,0,0,13,13,13,
+48,50,50,50,50,50,50,50,48,0,27,0,0,0,0,71,0,0,71,0,0,0,0,27,0,0,0,72,0,0,0,0,71,0,0,0,0,71,0,0,0,65,0,68,69,0,0,79,0,0,81,0,61,62,0,0,79,0,80,0,0,0,80,0,79,80,0,0,0,27,31,32,32,32,32,32,32,33,25,0,0,0,0,0,0,0,0,0,0,0,0,0,58,59,60,59,60,59,59,59,58,0,0,0,0,0,61,62,0,79,0,0,0,80,93,94,0,0,0,0,0,0,0,0,0,0,0,0,0,66,67,0,0,0,0,27,0,48,47,48,0,0,0,0,0,0,0,0,0,0,0,0,70,0,0,53,0,0,0,65,0,0,0,0,0,0,0,0,0,0,0,0,27,47,27,47,27,0,0,0,0,0,0,63,64,0,0,0,19,21,0,0,0,0,0,0,0,0,13,13,
+48,0,0,0,0,0,0,0,48,0,48,0,0,0,0,71,61,62,71,0,0,0,0,48,0,0,0,0,0,0,0,0,71,0,0,0,0,71,0,0,10,12,77,70,14,76,78,81,0,61,62,0,63,64,66,67,80,0,79,0,0,0,79,0,82,81,0,0,0,71,55,56,56,56,56,56,56,57,71,0,0,0,0,0,0,0,0,0,0,0,58,58,59,60,59,60,59,59,59,60,59,0,0,0,66,67,63,64,0,80,0,0,0,80,95,96,0,0,0,0,0,0,0,0,0,0,0,0,0,68,69,0,27,0,0,15,0,27,0,48,0,25,37,25,37,27,0,0,0,0,0,10,11,11,11,12,0,0,0,10,12,0,0,0,0,0,0,0,0,0,58,0,0,71,61,62,71,0,0,0,0,0,61,62,65,66,67,0,55,57,0,0,0,0,0,0,0,0,0,13,
+48,47,47,47,47,47,0,0,27,0,27,47,47,27,0,71,63,64,71,0,27,47,47,27,47,47,27,0,27,0,0,27,47,27,0,0,27,47,27,77,22,24,74,10,12,73,75,77,78,63,64,66,67,65,68,69,82,0,80,0,0,0,81,0,0,0,0,0,0,27,1,0,0,27,37,37,37,37,27,37,0,0,0,0,0,0,0,0,0,0,60,59,60,59,27,59,59,27,59,59,59,58,0,0,68,69,0,65,0,81,7,9,0,82,7,9,0,0,0,0,0,26,0,0,0,27,0,0,0,70,0,0,48,0,0,71,0,15,0,27,0,71,0,71,0,27,27,0,0,0,27,22,35,35,35,24,0,26,0,22,23,12,53,0,0,0,0,0,0,27,60,58,0,72,63,64,71,0,0,0,27,0,63,64,70,68,69,0,7,9,0,0,0,0,0,13,0,0,54,13,
+48,0,71,0,0,71,0,0,0,0,0,71,0,0,0,27,0,65,27,0,0,71,0,0,0,71,0,0,48,0,0,48,0,48,0,0,48,0,48,74,22,24,74,22,24,74,74,74,75,78,65,68,69,70,70,0,0,0,81,76,77,78,0,61,62,0,0,0,27,10,12,0,27,0,0,0,0,0,71,0,58,0,0,0,0,0,26,0,0,26,59,60,27,60,59,60,60,59,59,59,59,59,58,0,70,0,0,7,9,77,19,21,0,0,19,21,0,91,92,0,0,14,0,0,0,48,0,0,0,65,27,0,27,0,0,71,0,71,0,15,0,72,0,71,0,13,13,13,13,10,11,74,74,74,74,24,47,47,47,22,23,23,12,0,0,0,0,0,0,60,59,60,58,0,0,70,27,0,27,0,15,0,0,65,65,70,0,13,19,21,13,0,13,0,0,13,13,13,13,13,
+48,0,71,0,0,71,91,92,87,0,0,71,0,0,90,48,84,84,48,0,0,71,0,14,0,71,0,26,48,49,49,48,0,27,47,47,27,0,48,74,74,74,74,74,74,74,74,74,74,75,70,70,0,65,70,0,0,0,0,73,74,75,0,63,64,0,0,27,10,23,24,0,13,0,0,0,0,0,72,0,59,58,0,0,0,0,26,0,0,26,60,59,60,59,60,59,59,60,59,59,59,10,11,11,12,77,77,19,21,74,19,21,84,84,19,21,4,5,5,6,26,26,26,4,6,48,49,49,27,70,65,0,13,0,0,71,0,71,0,71,0,0,0,10,11,11,11,11,11,23,35,74,74,74,74,24,0,0,0,22,24,56,22,12,0,0,0,0,58,59,60,59,60,58,27,65,0,0,0,0,0,0,4,5,5,5,5,5,19,21,5,5,5,5,5,5,5,5,5,5,
+27,47,47,27,0,27,47,47,27,0,27,47,47,47,47,27,84,84,27,47,47,47,47,47,47,47,47,47,27,45,40,27,47,47,47,47,47,47,27,10,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,0,0,65,0,27,10,23,23,23,11,11,11,11,11,11,12,0,26,60,59,26,0,58,26,7,8,8,9,59,60,59,60,59,60,59,59,59,60,10,23,23,23,23,11,11,11,11,12,31,33,84,84,31,33,28,29,29,29,29,29,29,29,30,48,47,47,48,65,70,0,27,47,47,47,47,47,47,47,27,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,27,58,59,27,59,60,27,60,58,70,0,0,0,0,0,0,28,29,29,29,29,29,31,33,29,29,7,9,29,29,29,29,29,29,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="7" name="Water" width="200" height="8">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,101,0,0,0,0,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,101,101,101,0,0,0,0,0,0,0,0,0,0,0,0,101,101,101,101,101,101,101,101,0,0,0,0,101,101,101,101,101,101,101,101,101,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,101,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,101,101,0,101,101,0,101,101,101,101,101,101,101,101,101,101,101,101,101,101,101,0,0,101,101,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="5" name="collision">
+  <object id="1" x="0" y="0" width="576" height="64"/>
+  <object id="2" x="640" y="0" width="64" height="192"/>
+  <object id="3" x="1472" y="0" width="64" height="192"/>
+  <object id="4" x="4416" y="0" width="640" height="128"/>
+  <object id="5" x="8640" y="0" width="192" height="64"/>
+  <object id="6" x="8896" y="0" width="576" height="64"/>
+  <object id="7" x="11264" y="0" width="64" height="64"/>
+  <object id="8" x="12032" y="0" width="128" height="128"/>
+  <object id="9" x="12608" y="0" width="192" height="64"/>
+  <object id="10" x="0" y="64" width="64" height="128"/>
+  <object id="11" x="512" y="64" width="64" height="192"/>
+  <object id="12" x="8640" y="64" width="64" height="128"/>
+  <object id="13" x="8768" y="64" width="192" height="64"/>
+  <object id="14" x="11008" y="64" width="320" height="64"/>
+  <object id="15" x="12672" y="64" width="128" height="64"/>
+  <object id="16" x="2560" y="128" width="128" height="192"/>
+  <object id="17" x="2816" y="128" width="64" height="64"/>
+  <object id="18" x="8448" y="128" width="64" height="192"/>
+  <object id="19" x="8768" y="128" width="64" height="128"/>
+  <object id="20" x="8896" y="128" width="64" height="192"/>
+  <object id="21" x="9024" y="128" width="320" height="64"/>
+  <object id="22" x="9664" y="128" width="320" height="64"/>
+  <object id="23" x="10176" y="128" width="128" height="64"/>
+  <object id="24" x="12736" y="128" width="64" height="128"/>
+  <object id="25" x="0" y="192" width="384" height="64"/>
+  <object id="26" x="640" y="192" width="256" height="64"/>
+  <object id="27" x="1280" y="192" width="448" height="64"/>
+  <object id="28" x="1792" y="192" width="64" height="128"/>
+  <object id="29" x="1984" y="192" width="192" height="64"/>
+  <object id="30" x="2304" y="192" width="192" height="64"/>
+  <object id="31" x="2752" y="192" width="128" height="128"/>
+  <object id="32" x="4416" y="192" width="128" height="64"/>
+  <object id="33" x="4672" y="192" width="448" height="64"/>
+  <object id="34" x="6016" y="192" width="64" height="64"/>
+  <object id="35" x="6208" y="192" width="64" height="64"/>
+  <object id="36" x="7040" y="192" width="128" height="192"/>
+  <object id="37" x="7296" y="192" width="128" height="128"/>
+  <object id="38" x="7744" y="192" width="64" height="128"/>
+  <object id="39" x="8000" y="192" width="64" height="128"/>
+  <object id="40" x="9280" y="192" width="128" height="64"/>
+  <object id="41" x="9856" y="192" width="128" height="64"/>
+  <object id="42" x="10048" y="192" width="64" height="64"/>
+  <object id="43" x="10176" y="192" width="192" height="64"/>
+  <object id="44" x="10816" y="192" width="64" height="64"/>
+  <object id="45" x="11520" y="192" width="64" height="128"/>
+  <object id="46" x="12032" y="192" width="128" height="64"/>
+  <object id="47" x="12480" y="192" width="64" height="64"/>
+  <object id="48" x="0" y="256" width="64" height="128"/>
+  <object id="49" x="960" y="256" width="64" height="128"/>
+  <object id="50" x="1152" y="256" width="64" height="128"/>
+  <object id="51" x="1984" y="256" width="64" height="128"/>
+  <object id="52" x="2112" y="256" width="64" height="64"/>
+  <object id="53" x="2304" y="256" width="64" height="64"/>
+  <object id="54" x="2432" y="256" width="64" height="64"/>
+  <object id="55" x="4352" y="256" width="192" height="64"/>
+  <object id="56" x="4608" y="256" width="64" height="64"/>
+  <object id="57" x="5504" y="256" width="64" height="128"/>
+  <object id="58" x="5696" y="256" width="64" height="128"/>
+  <object id="59" x="5888" y="256" width="64" height="64"/>
+  <object id="60" x="6848" y="256" width="128" height="128"/>
+  <object id="61" x="8320" y="256" width="64" height="64"/>
+  <object id="62" x="9536" y="256" width="128" height="64"/>
+  <object id="63" x="9920" y="256" width="512" height="64"/>
+  <object id="64" x="11264" y="256" width="64" height="64"/>
+  <object id="65" x="11392" y="256" width="64" height="64"/>
+  <object id="66" x="11968" y="256" width="256" height="64"/>
+  <object id="67" x="12288" y="256" width="64" height="64"/>
+  <object id="68" x="12480" y="256" width="320" height="64"/>
+  <object id="69" x="1472" y="320" width="64" height="64"/>
+  <object id="70" x="1728" y="320" width="128" height="64"/>
+  <object id="71" x="4288" y="320" width="256" height="64"/>
+  <object id="72" x="6464" y="320" width="256" height="64"/>
+  <object id="73" x="7296" y="320" width="768" height="64"/>
+  <object id="74" x="8192" y="320" width="64" height="64"/>
+  <object id="75" x="9152" y="320" width="512" height="64"/>
+  <object id="76" x="10176" y="320" width="128" height="64"/>
+  <object id="77" x="11136" y="320" width="64" height="64"/>
+  <object id="78" x="11648" y="320" width="1152" height="128"/>
+  <object id="79" x="0" y="384" width="256" height="64"/>
+  <object id="80" x="320" y="384" width="256" height="64"/>
+  <object id="81" x="640" y="384" width="384" height="64"/>
+  <object id="82" x="1152" y="384" width="2816" height="64"/>
+  <object id="83" x="4224" y="384" width="768" height="64"/>
+  <object id="84" x="5056" y="384" width="64" height="64"/>
+  <object id="85" x="5248" y="384" width="64" height="64"/>
+  <object id="86" x="5440" y="384" width="320" height="64"/>
+  <object id="87" x="6400" y="384" width="768" height="64"/>
+  <object id="88" x="7296" y="384" width="960" height="64"/>
+  <object id="89" x="8448" y="384" width="2240" height="64"/>
+  <object id="90" x="10816" y="384" width="64" height="64"/>
+  <object id="91" x="11008" y="384" width="64" height="64"/>
+  <object id="92" name="breakable" x="9600" y="192" width="64" height="64"/>
+  <object id="93" name="breakable" x="9664" y="192" width="64" height="64"/>
+  <object id="94" name="breakable" x="9728" y="192" width="64" height="64"/>
+  <object id="95" name="breakable" x="9792" y="192" width="64" height="64"/>
+  <object id="96" name="breakable" x="9280" y="256" width="64" height="64"/>
+  <object id="97" name="breakable" x="9344" y="256" width="64" height="64"/>
+  <object id="98" name="breakable" x="9408" y="256" width="64" height="64"/>
+  <object id="99" name="breakable" x="9472" y="256" width="64" height="64"/>
+  <object id="100" name="breakable" x="2112" y="320" width="64" height="64"/>
+  <object id="101" name="breakable" x="2176" y="320" width="64" height="64"/>
+  <object id="102" name="breakable" x="2240" y="320" width="64" height="64"/>
+  <object id="103" name="breakable" x="2304" y="320" width="64" height="64"/>
+  <object id="104" name="breakable" x="2432" y="320" width="64" height="64"/>
+  <object id="105" name="breakable" x="4608" y="320" width="64" height="64"/>
+  <object id="106" name="breakable" x="8448" y="320" width="64" height="64"/>
+  <object id="107" name="breakable" x="9920" y="320" width="64" height="64"/>
+  <object id="108" name="breakable" x="10368" y="320" width="64" height="64"/>
+  <object id="109" name="breakable" x="10432" y="320" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="6" name="entities">
+  <object id="110" name="player" x="128" y="128" width="64" height="64">
+   <properties>
+    <property name="facing" value="right"/>
+   </properties>
+  </object>
+  <object id="111" name="cannon" x="640" y="0" width="64" height="64"/>
+  <object id="112" name="cannon" x="1472" y="0" width="64" height="64"/>
+  <object id="113" name="cherry" x="1856" y="0" width="64" height="64"/>
+  <object id="114" name="cherry" x="1920" y="0" width="64" height="64"/>
+  <object id="115" name="cherry" x="2112" y="0" width="64" height="64"/>
+  <object id="116" name="crusher" x="2176" y="0" width="64" height="64"/>
+  <object id="117" name="cherry" x="2304" y="0" width="64" height="64"/>
+  <object id="118" name="crusher" x="2880" y="0" width="64" height="64"/>
+  <object id="119" name="crusher" x="3008" y="0" width="64" height="64"/>
+  <object id="120" name="crusher" x="3136" y="0" width="64" height="64"/>
+  <object id="121" name="crusher" x="3264" y="0" width="64" height="64"/>
+  <object id="122" name="crusher" x="3392" y="0" width="64" height="64"/>
+  <object id="123" name="crusher" x="3520" y="0" width="64" height="64"/>
+  <object id="124" name="crusher" x="3648" y="0" width="64" height="64"/>
+  <object id="125" name="crusher" x="3776" y="0" width="64" height="64"/>
+  <object id="126" name="cannon" x="4992" y="0" width="64" height="64"/>
+  <object id="127" name="crusher" x="5568" y="0" width="64" height="64"/>
+  <object id="128" name="spikefish" x="6144" y="0" width="64" height="64"/>
+  <object id="129" name="crusher" x="6528" y="0" width="64" height="64"/>
+  <object id="130" name="crusher" x="7488" y="0" width="64" height="64"/>
+  <object id="131" name="spike" x="7744" y="0" width="64" height="64"/>
+  <object id="132" name="crusher" x="7808" y="0" width="64" height="64"/>
+  <object id="133" name="crusher" x="8064" y="0" width="64" height="64"/>
+  <object id="134" name="star" x="11072" y="0" width="64" height="64"/>
+  <object id="135" name="star" x="11136" y="0" width="64" height="64"/>
+  <object id="136" name="star" x="11200" y="0" width="64" height="64"/>
+  <object id="137" name="crusher" x="12352" y="0" width="64" height="64"/>
+  <object id="138" name="spike" x="64" y="64" width="64" height="64"/>
+  <object id="139" name="spike" x="128" y="64" width="64" height="64"/>
+  <object id="140" name="spike" x="192" y="64" width="64" height="64"/>
+  <object id="141" name="spike" x="256" y="64" width="64" height="64"/>
+  <object id="142" name="spike" x="320" y="64" width="64" height="64"/>
+  <object id="143" name="spike" x="384" y="64" width="64" height="64"/>
+  <object id="144" name="spike" x="448" y="64" width="64" height="64"/>
+  <object id="145" name="heart" x="576" y="64" width="64" height="64"/>
+  <object id="146" name="cherry" x="960" y="64" width="64" height="64"/>
+  <object id="147" name="star" x="1024" y="64" width="64" height="64"/>
+  <object id="148" name="spikefish" x="1024" y="64" width="64" height="64"/>
+  <object id="149" name="star" x="1088" y="64" width="64" height="64"/>
+  <object id="150" name="cherry" x="1152" y="64" width="64" height="64"/>
+  <object id="151" name="cherry" x="1344" y="64" width="64" height="64"/>
+  <object id="152" name="cherry" x="1600" y="64" width="64" height="64"/>
+  <object id="153" name="crusher" x="1856" y="64" width="64" height="64"/>
+  <object id="154" name="cherry" x="2048" y="64" width="64" height="64"/>
+  <object id="155" name="cherry" x="2176" y="64" width="64" height="64"/>
+  <object id="156" name="cherry" x="2240" y="64" width="64" height="64"/>
+  <object id="157" name="cherry" x="2368" y="64" width="64" height="64"/>
+  <object id="158" name="spikefish" x="5120" y="64" width="64" height="64"/>
+  <object id="159" name="spikefish" x="6080" y="64" width="64" height="64"/>
+  <object id="160" name="cherry" x="7296" y="64" width="64" height="64"/>
+  <object id="161" name="cherry" x="7360" y="64" width="64" height="64"/>
+  <object id="162" name="cherry" x="8000" y="64" width="64" height="64"/>
+  <object id="163" name="cherry" x="8448" y="64" width="64" height="64"/>
+  <object id="164" name="cherry" x="9024" y="64" width="64" height="64"/>
+  <object id="165" name="cherry" x="9152" y="64" width="64" height="64"/>
+  <object id="166" name="enemy2" x="9664" y="64" width="320" height="64"/>
+  <object id="167" name="enemy2" x="9664" y="64" width="320" height="64"/>
+  <object id="168" name="cherry" x="10048" y="64" width="64" height="64"/>
+  <object id="169" name="star" x="10816" y="64" width="64" height="64"/>
+  <object id="170" name="jellyfish" x="10944" y="64" width="64" height="64"/>
+  <object id="171" name="spin" x="11136" y="64" width="64" height="64"/>
+  <object id="172" name="cherry" x="11520" y="64" width="64" height="64"/>
+  <object id="173" name="cherry" x="11712" y="64" width="64" height="64"/>
+  <object id="174" name="cherry" x="11840" y="64" width="64" height="64"/>
+  <object id="175" name="cherry" x="12224" y="64" width="64" height="64"/>
+  <object id="176" name="cherry" x="12608" y="64" width="64" height="64"/>
+  <object id="177" name="star" x="576" y="128" width="64" height="64"/>
+  <object id="178" name="cherry" x="704" y="128" width="64" height="64"/>
+  <object id="179" name="cherry" x="768" y="128" width="64" height="64"/>
+  <object id="180" name="enemy2" x="704" y="128" width="192" height="64"/>
+  <object id="181" name="cherry" x="832" y="128" width="64" height="64"/>
+  <object id="182" name="spikefish" x="1088" y="128" width="64" height="64"/>
+  <object id="183" name="cherry" x="1280" y="128" width="64" height="64"/>
+  <object id="184" name="star" x="1344" y="128" width="64" height="64"/>
+  <object id="185" name="enemy2" x="1280" y="128" width="192" height="64"/>
+  <object id="186" name="cherry" x="1408" y="128" width="64" height="64"/>
+  <object id="187" name="cherry" x="1536" y="128" width="64" height="64"/>
+  <object id="188" name="star" x="1600" y="128" width="64" height="64"/>
+  <object id="189" name="enemy2" x="1536" y="128" width="192" height="64"/>
+  <object id="190" name="cherry" x="1664" y="128" width="64" height="64"/>
+  <object id="191" name="enemy2" x="1984" y="128" width="192" height="64"/>
+  <object id="192" name="enemy2" x="2304" y="128" width="192" height="64"/>
+  <object id="193" name="cannon" x="2816" y="128" width="64" height="64"/>
+  <object id="194" name="enemy1" x="4480" y="128" width="64" height="64"/>
+  <object id="195" name="enemy2" x="4672" y="128" width="448" height="64"/>
+  <object id="196" name="enemy2" x="4672" y="128" width="448" height="64"/>
+  <object id="197" name="spikefish" x="5184" y="128" width="64" height="64"/>
+  <object id="198" name="spikefish" x="5952" y="128" width="64" height="64"/>
+  <object id="199" name="cherry" x="6016" y="128" width="64" height="64"/>
+  <object id="200" name="egg" x="6208" y="128" width="64" height="64"/>
+  <object id="201" name="cherry" x="6528" y="128" width="64" height="64"/>
+  <object id="202" name="cherry" x="6592" y="128" width="64" height="64"/>
+  <object id="203" name="star" x="7296" y="128" width="64" height="64"/>
+  <object id="204" name="star" x="7360" y="128" width="64" height="64"/>
+  <object id="205" name="star" x="8000" y="128" width="64" height="64"/>
+  <object id="206" name="star" x="8576" y="128" width="64" height="64"/>
+  <object id="207" name="cannon" x="8640" y="128" width="64" height="64"/>
+  <object id="208" name="heart" x="9344" y="128" width="64" height="64"/>
+  <object id="209" name="cherry" x="9984" y="128" width="64" height="64"/>
+  <object id="210" name="star" x="10048" y="128" width="64" height="64"/>
+  <object id="211" name="cherry" x="10112" y="128" width="64" height="64"/>
+  <object id="212" name="star" x="10816" y="128" width="64" height="64"/>
+  <object id="213" name="cherry" x="11264" y="128" width="64" height="64"/>
+  <object id="214" name="cherry" x="11392" y="128" width="64" height="64"/>
+  <object id="215" name="heart" x="11520" y="128" width="64" height="64"/>
+  <object id="216" name="cherry" x="11776" y="128" width="64" height="64"/>
+  <object id="217" name="enemy1" x="12032" y="128" width="64" height="64"/>
+  <object id="218" name="enemy1" x="12096" y="128" width="64" height="64"/>
+  <object id="219" name="cherry" x="12352" y="128" width="64" height="64"/>
+  <object id="220" name="star" x="12480" y="128" width="64" height="64"/>
+  <object id="221" name="jellyfish" x="576" y="192" width="64" height="64"/>
+  <object id="222" name="egg" x="960" y="192" width="64" height="64"/>
+  <object id="223" name="egg" x="1152" y="192" width="64" height="64"/>
+  <object id="224" name="star" x="2688" y="192" width="64" height="64"/>
+  <object id="225" name="star" x="4032" y="192" width="64" height="64"/>
+  <object id="226" name="star" x="4096" y="192" width="64" height="64"/>
+  <object id="227" name="egg" x="4352" y="192" width="64" height="64"/>
+  <object id="228" name="cherry" x="4544" y="192" width="64" height="64"/>
+  <object id="229" name="cherry" x="4608" y="192" width="64" height="64"/>
+  <object id="230" name="spikefish" x="5824" y="192" width="64" height="64"/>
+  <object id="231" name="cherry" x="5888" y="192" width="64" height="64"/>
+  <object id="232" name="star" x="6528" y="192" width="64" height="64"/>
+  <object id="233" name="star" x="6592" y="192" width="64" height="64"/>
+  <object id="234" name="cherry" x="8320" y="192" width="64" height="64"/>
+  <object id="235" name="star" x="8704" y="192" width="64" height="64"/>
+  <object id="236" name="cannon" x="8768" y="192" width="64" height="64"/>
+  <object id="237" name="star" x="9984" y="192" width="64" height="64"/>
+  <object id="238" name="star" x="10112" y="192" width="64" height="64"/>
+  <object id="239" name="jellyfish" x="10752" y="192" width="64" height="64"/>
+  <object id="240" name="cherry" x="11136" y="192" width="64" height="64"/>
+  <object id="241" name="spikefish" x="11200" y="192" width="64" height="64"/>
+  <object id="242" name="egg" x="11264" y="192" width="64" height="64"/>
+  <object id="243" name="egg" x="11392" y="192" width="64" height="64"/>
+  <object id="244" name="cherry" x="11712" y="192" width="64" height="64"/>
+  <object id="245" name="cherry" x="11840" y="192" width="64" height="64"/>
+  <object id="246" name="cherry" x="12160" y="192" width="64" height="64"/>
+  <object id="247" name="star" x="12288" y="192" width="64" height="64"/>
+  <object id="248" name="cherry" x="12544" y="192" width="64" height="64"/>
+  <object id="249" name="exit" x="12672" y="192" width="64" height="64"/>
+  <object id="250" name="star" x="64" y="256" width="64" height="64"/>
+  <object id="251" name="cherry" x="128" y="256" width="64" height="64"/>
+  <object id="252" name="star" x="192" y="256" width="64" height="64"/>
+  <object id="253" name="star" x="320" y="256" width="64" height="64"/>
+  <object id="254" name="cherry" x="384" y="256" width="64" height="64"/>
+  <object id="255" name="star" x="448" y="256" width="64" height="64"/>
+  <object id="256" name="star" x="2688" y="256" width="64" height="64"/>
+  <object id="257" name="star" x="3968" y="256" width="64" height="64"/>
+  <object id="258" name="star" x="4160" y="256" width="64" height="64"/>
+  <object id="259" name="egg" x="4288" y="256" width="64" height="64"/>
+  <object id="260" name="cherry" x="4544" y="256" width="64" height="64"/>
+  <object id="261" name="spikefish" x="5312" y="256" width="64" height="64"/>
+  <object id="262" name="cherry" x="5568" y="256" width="64" height="64"/>
+  <object id="263" name="cherry" x="5632" y="256" width="64" height="64"/>
+  <object id="264" name="heart" x="6272" y="256" width="64" height="64"/>
+  <object id="265" name="jellyfish" x="6272" y="256" width="64" height="64"/>
+  <object id="266" name="spikefish" x="6336" y="256" width="64" height="64"/>
+  <object id="267" name="cherry" x="6464" y="256" width="64" height="64"/>
+  <object id="268" name="cherry" x="6528" y="256" width="64" height="64"/>
+  <object id="269" name="cherry" x="6592" y="256" width="64" height="64"/>
+  <object id="270" name="cherry" x="6656" y="256" width="64" height="64"/>
+  <object id="271" name="cherry" x="6784" y="256" width="64" height="64"/>
+  <object id="272" name="cherry" x="6976" y="256" width="64" height="64"/>
+  <object id="273" name="cannon" x="7744" y="256" width="64" height="64"/>
+  <object id="274" name="cherry" x="8192" y="256" width="64" height="64"/>
+  <object id="275" name="star" x="8832" y="256" width="64" height="64"/>
+  <object id="276" name="cannon" x="8896" y="256" width="64" height="64"/>
+  <object id="277" name="star" x="9280" y="256" width="64" height="64"/>
+  <object id="278" name="star" x="9344" y="256" width="64" height="64"/>
+  <object id="279" name="star" x="9408" y="256" width="64" height="64"/>
+  <object id="280" name="star" x="9472" y="256" width="64" height="64"/>
+  <object id="281" name="cherry" x="10816" y="256" width="64" height="64"/>
+  <object id="282" name="cherry" x="11008" y="256" width="64" height="64"/>
+  <object id="283" name="cannon" x="11520" y="256" width="64" height="64"/>
+  <object id="284" name="enemy2" x="11648" y="256" width="320" height="64"/>
+  <object id="285" name="cherry" x="64" y="320" width="64" height="64"/>
+  <object id="286" name="star" x="128" y="320" width="64" height="64"/>
+  <object id="287" name="cherry" x="192" y="320" width="64" height="64"/>
+  <object id="288" name="cherry" x="320" y="320" width="64" height="64"/>
+  <object id="289" name="star" x="384" y="320" width="64" height="64"/>
+  <object id="290" name="cherry" x="448" y="320" width="64" height="64"/>
+  <object id="291" name="cannon" x="1472" y="320" width="64" height="64"/>
+  <object id="292" name="spike" x="1856" y="320" width="64" height="64"/>
+  <object id="293" name="spike" x="1920" y="320" width="64" height="64"/>
+  <object id="294" name="heart" x="2048" y="320" width="64" height="64"/>
+  <object id="295" name="star" x="2112" y="320" width="64" height="64"/>
+  <object id="296" name="star" x="2176" y="320" width="64" height="64"/>
+  <object id="297" name="star" x="2240" y="320" width="64" height="64"/>
+  <object id="298" name="star" x="2304" y="320" width="64" height="64"/>
+  <object id="299" name="cherry" x="2368" y="320" width="64" height="64"/>
+  <object id="300" name="enemy2" x="2048" y="320" width="1920" height="64"/>
+  <object id="301" name="enemy2" x="2048" y="320" width="1920" height="64"/>
+  <object id="302" name="cherry" x="2880" y="320" width="64" height="64"/>
+  <object id="303" name="cherry" x="2944" y="320" width="64" height="64"/>
+  <object id="304" name="cherry" x="3008" y="320" width="64" height="64"/>
+  <object id="305" name="cherry" x="3072" y="320" width="64" height="64"/>
+  <object id="306" name="cherry" x="3136" y="320" width="64" height="64"/>
+  <object id="307" name="cherry" x="3200" y="320" width="64" height="64"/>
+  <object id="308" name="cherry" x="3264" y="320" width="64" height="64"/>
+  <object id="309" name="cherry" x="3328" y="320" width="64" height="64"/>
+  <object id="310" name="cherry" x="3392" y="320" width="64" height="64"/>
+  <object id="311" name="cherry" x="3456" y="320" width="64" height="64"/>
+  <object id="312" name="cherry" x="3520" y="320" width="64" height="64"/>
+  <object id="313" name="cherry" x="3584" y="320" width="64" height="64"/>
+  <object id="314" name="cherry" x="3648" y="320" width="64" height="64"/>
+  <object id="315" name="cherry" x="3712" y="320" width="64" height="64"/>
+  <object id="316" name="cherry" x="3776" y="320" width="64" height="64"/>
+  <object id="317" name="cherry" x="3840" y="320" width="64" height="64"/>
+  <object id="318" name="cherry" x="3904" y="320" width="64" height="64"/>
+  <object id="319" name="egg" x="4224" y="320" width="64" height="64"/>
+  <object id="320" name="heart" x="4544" y="320" width="64" height="64"/>
+  <object id="321" name="oneup" x="4608" y="320" width="64" height="64"/>
+  <object id="322" name="star" x="4672" y="320" width="64" height="64"/>
+  <object id="323" name="cherry" x="4736" y="320" width="64" height="64"/>
+  <object id="324" name="star" x="4800" y="320" width="64" height="64"/>
+  <object id="325" name="cherry" x="4864" y="320" width="64" height="64"/>
+  <object id="326" name="star" x="4928" y="320" width="64" height="64"/>
+  <object id="327" name="cherry" x="5568" y="320" width="64" height="64"/>
+  <object id="328" name="cherry" x="5632" y="320" width="64" height="64"/>
+  <object id="329" name="cherry" x="6720" y="320" width="64" height="64"/>
+  <object id="330" name="star" x="6784" y="320" width="64" height="64"/>
+  <object id="331" name="heart" x="6976" y="320" width="64" height="64"/>
+  <object id="332" name="spike" x="8064" y="320" width="64" height="64"/>
+  <object id="333" name="spike" x="8128" y="320" width="64" height="64"/>
+  <object id="334" name="star" x="9984" y="320" width="64" height="64"/>
+  <object id="335" name="oneup" x="10048" y="320" width="64" height="64"/>
+  <object id="336" name="star" x="10112" y="320" width="64" height="64"/>
+  <object id="337" name="star" x="10304" y="320" width="64" height="64"/>
+  <object id="338" name="spin" x="2688" y="384" width="64" height="64"/>
+  <object id="339" name="spin" x="4928" y="384" width="64" height="64"/>
+  <object id="340" name="spin" x="8960" y="384" width="64" height="64"/>
+ </objectgroup>
+</map>

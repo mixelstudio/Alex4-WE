@@ -1,0 +1,172 @@
+/**
+ * Alex the Allegator 4 — Web Edition.
+ * Port of "Alex the Allegator 4" (c) 2003 Johan Peitz / Free Lunch Design.
+ * GPL-2.0-or-later, as is the original game — see `LICENSE`.
+ */
+import {
+	type Application,
+	audio,
+	input,
+	level,
+	Stage,
+	state,
+	type TMXTileMap,
+} from "melonjs";
+import { LEVELS } from "../constants";
+import { CherryEntity, StarEntity } from "../entities/collectables";
+import {
+	GameOverMessage,
+	HUD,
+	LetsGoMessage,
+	PauseMessage,
+} from "../entities/hud";
+import { bindPads, PLAY_PAD, unbindPads } from "../gamepad";
+import { gameState } from "../gameState";
+import { shaders } from "../shaders";
+import { go, pixelate } from "../transition";
+
+// the custom properties of our Tiled maps
+export type LevelMap = TMXTileMap & {
+	label: string;
+	boss?: number;
+	win?: number;
+};
+
+/* the in game stuff */
+export class PlayScreen extends Stage {
+	private app!: Application;
+	private hud: HUD | undefined;
+	private pauseMessage: PauseMessage | undefined;
+	private gameOver = false;
+
+	override onResetEvent(app: Application) {
+		this.app = app;
+		this.gameOver = false;
+
+		// enable the keyboard
+		input.bindKey(input.KEY.LEFT, "left");
+		input.bindKey(input.KEY.RIGHT, "right");
+		input.bindKey(input.KEY.X, "jump", true);
+		input.bindKey(input.KEY.SPACE, "jump", true);
+		input.bindKey(input.KEY.UP, "jump", true);
+		input.bindKey(input.KEY.Z, "fire", true);
+		input.bindKey(input.KEY.C, "fire", true);
+		input.bindKey(input.KEY.ENTER, "fire", true);
+		input.bindKey(input.KEY.P, "pause", true);
+		input.bindKey(input.KEY.ESC, "quit", true);
+
+		// and the gamepads
+		bindPads(PLAY_PAD);
+
+		// add the HUD, it stays when the level reloads
+		this.hud = new HUD();
+		app.world.addChild(this.hud, 100);
+
+		this.loadLevel(true);
+	}
+
+	/** load (or reload) the current level */
+	private loadLevel(firstTry: boolean) {
+		CherryEntity.count = 0;
+		StarEntity.count = 0;
+		gameState.cherries = 0;
+		gameState.stars = 0;
+		gameState.energy = Math.max(gameState.energy, 1);
+
+		level.load(LEVELS[gameState.level], {
+			container: this.app.world,
+			onLoaded: () => {
+				const map = level.getCurrentLevel() as LevelMap;
+				shaders.jungle(this.app.world);
+				if (firstTry) {
+					this.app.world.addChild(new LetsGoMessage(map.label), 101);
+				}
+				this.playLevelSong();
+			},
+		});
+	}
+
+	/** a short jingle, then the level (or boss) song */
+	private playLevelSong() {
+		const map = level.getCurrentLevel() as LevelMap;
+		audio.play(map.boss ? "boss_start" : "level_start", false, () => {
+			audio.playTrack(map.boss ? "boss_song" : "level_song");
+		});
+	}
+
+	/** stop the music (stopping the jingle also cancels the song after it) */
+	private stopLevelSong() {
+		audio.stop("level_start");
+		audio.stop("boss_start");
+		audio.stopTrack();
+	}
+
+	override update(dt: number) {
+		if (!this.gameOver && input.isKeyPressed("pause")) {
+			if (state.isPaused()) {
+				state.resume(true);
+				if (this.pauseMessage) {
+					this.app.world.removeChild(this.pauseMessage);
+				}
+			} else {
+				state.pause(true);
+				this.pauseMessage = new PauseMessage();
+				this.app.world.addChild(this.pauseMessage, 102);
+			}
+		}
+		if (input.isKeyPressed("quit")) {
+			gameState.record();
+			go(state.MENU);
+		}
+		return super.update(dt);
+	}
+
+	/** Alex just died: some sad music */
+	onPlayerDying() {
+		this.stopLevelSong();
+		audio.play(gameState.lives > 0 ? "player_dies" : "game_over");
+	}
+
+	/** Alex fell out of the screen: try again, or game over */
+	onPlayerDeath() {
+		if (gameState.lives > 0) {
+			pixelate(() => this.loadLevel(false));
+		} else {
+			this.gameOver = true;
+			gameState.record();
+			this.app.world.addChild(new GameOverMessage(() => go(state.MENU)), 101);
+		}
+	}
+
+	/** exit reached, or guardian defeated */
+	onLevelComplete() {
+		this.stopLevelSong();
+		state.change(state.READY);
+	}
+
+	override onDestroyEvent(app: Application) {
+		if (state.isPaused()) {
+			state.resume();
+		}
+		if (this.hud) {
+			app.world.removeChild(this.hud);
+		}
+		this.stopLevelSong();
+
+		unbindPads(PLAY_PAD);
+		for (const key of [
+			"LEFT",
+			"RIGHT",
+			"X",
+			"SPACE",
+			"UP",
+			"Z",
+			"C",
+			"ENTER",
+			"P",
+			"ESC",
+		] as const) {
+			input.unbindKey(input.KEY[key]);
+		}
+	}
+}

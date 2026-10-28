@@ -1,0 +1,28 @@
+{
+	"name": "alex4-we",
+	"version": "2.0.0",
+	"description": "Alex the Allegator 4 – Web Edition: the 2003 Free Lunch Design platformer, playable in the browser with melonJS",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"type": "module",
+	"homepage": "https://mixelstudio.github.io/Alex4-WE/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mixelstudio/Alex4-WE.git"
+	},
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"lint": "biome check ."
+	},
+	"dependencies": {
+		"@melonjs/debug-plugin": "^16.2.0",
+		"melonjs": "^20.12.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.6.3",
+		"typescript": "^6.0.2",
+		"vite": "^8.1.5"
+	}
+}
