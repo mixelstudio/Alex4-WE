@@ -14,7 +14,7 @@ import {
 } from "melonjs";
 import { gameState } from "../gameState";
 import { shaders } from "../shaders";
-import { burst, flash, sparkle } from "./effects";
+import { burst, flash, points, sparkle } from "./effects";
 import { PlayerEntity } from "./player";
 
 /**
@@ -71,7 +71,7 @@ export class CherryEntity extends Pickup {
 		audio.play("cherry");
 		gameState.score += 10;
 		gameState.cherries++;
-		// all the cherries of the level!
+		// all the cherries of the level! (the 100% says it, not the points)
 		if (gameState.cherries === CherryEntity.count) {
 			flash(
 				this.parentApp.world,
@@ -81,6 +81,8 @@ export class CherryEntity extends Pickup {
 				100,
 				1000,
 			);
+		} else {
+			points(this.parentApp.world, this.pos.x + 32, this.pos.y, 10);
 		}
 	}
 }
@@ -110,6 +112,8 @@ export class StarEntity extends Pickup {
 				100,
 				1000,
 			);
+		} else {
+			points(this.parentApp.world, this.pos.x + 32, this.pos.y, 100);
 		}
 	}
 }
@@ -128,6 +132,7 @@ export class HeartEntity extends Pickup {
 			gameState.energy++;
 		} else {
 			gameState.score += 100;
+			points(this.parentApp.world, this.pos.x + 32, this.pos.y, 100);
 		}
 	}
 }
