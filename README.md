@@ -46,9 +46,10 @@ every level.
 - **2012** – Alex4 Web Edition: the first six levels remade in HTML5 with
   melonJS 0.9.
 - **2026** – the Web Edition is rebuilt on melonJS 20 and completed from the
-  original game's source and data: levels 7 to 12, the remaining enemies, both
-  guardians, egg spitting, the intro and the ending. It plays with a keyboard,
-  a gamepad or, in the menus, a mouse or a finger, and goes full screen.
+  original game's source and data: all 12 levels, as the original has them,
+  the remaining enemies, both guardians, egg spitting, the intro and the
+  ending. It plays with a keyboard, a gamepad or, in the menus, a mouse or a
+  finger, and goes full screen.
 
 ## Running it
 
