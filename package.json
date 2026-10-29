@@ -2,6 +2,17 @@
 	"name": "alex4-we",
 	"version": "2.0.0",
 	"description": "Alex the Allegator 4 – Web Edition: the 2003 Free Lunch Design platformer, playable in the browser with melonJS",
+	"keywords": [
+		"melonjs",
+		"melonjs-game",
+		"html5-game",
+		"game",
+		"platformer",
+		"retro",
+		"alex4",
+		"alex-the-allegator",
+		"free-lunch-design"
+	],
 	"license": "GPL-2.0-or-later",
 	"private": true,
 	"type": "module",
