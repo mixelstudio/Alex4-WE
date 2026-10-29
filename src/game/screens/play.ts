@@ -131,7 +131,7 @@ export class PlayScreen extends Stage {
 				}
 				state.pause(true);
 				this.resumeJingle(false);
-				this.showPause("P OR START");
+				this.showPause("P OR START TO RESUME");
 			}
 		}
 		if (input.isKeyPressed("quit")) {
@@ -175,7 +175,7 @@ export class PlayScreen extends Stage {
 	/** the window lost the focus (a tab switch fires this twice) */
 	private onBlur = () => {
 		if (!this.pauseMessage && !this.gameOver) {
-			this.showPause("CLICK TO PLAY");
+			this.showPause("CLICK TO RESUME");
 			this.pausedByBlur = true;
 		}
 	};
