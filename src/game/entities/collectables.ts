@@ -82,7 +82,7 @@ export class CherryEntity extends Pickup {
 				1000,
 			);
 		} else {
-			points(this.parentApp.world, this.pos.x + 32, this.pos.y, 10);
+			points(this.parentApp, this.pos.x + 32, this.pos.y, 10);
 		}
 	}
 }
@@ -113,7 +113,7 @@ export class StarEntity extends Pickup {
 				1000,
 			);
 		} else {
-			points(this.parentApp.world, this.pos.x + 32, this.pos.y, 100);
+			points(this.parentApp, this.pos.x + 32, this.pos.y, 100);
 		}
 	}
 }
@@ -132,7 +132,7 @@ export class HeartEntity extends Pickup {
 			gameState.energy++;
 		} else {
 			gameState.score += 100;
-			points(this.parentApp.world, this.pos.x + 32, this.pos.y, 100);
+			points(this.parentApp, this.pos.x + 32, this.pos.y, 100);
 		}
 	}
 }

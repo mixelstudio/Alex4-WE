@@ -3,7 +3,14 @@
  * Port of "Alex the Allegator 4" (c) 2003 Johan Peitz / Free Lunch Design.
  * GPL-2.0-or-later, as is the original game — see `LICENSE`.
  */
-import { BitmapText, Container, Sprite, Tween, UIPanel } from "melonjs";
+import {
+	BitmapText,
+	Container,
+	type GlyphEffect,
+	Sprite,
+	Tween,
+	UIPanel,
+} from "melonjs";
 import { HEIGHT, PALETTE, WIDTH } from "../constants";
 import { gameState } from "../gameState";
 import { shaders } from "../shaders";
@@ -85,6 +92,8 @@ class HUDEnergy extends Container {
 export class HUD extends Container {
 	score: BitmapText;
 	private shown = -1;
+	/** time left of the score's hop, when points land in it */
+	private hop = 0;
 
 	constructor() {
 		super(0, HEIGHT - 40, WIDTH, 40);
@@ -118,9 +127,29 @@ export class HUD extends Container {
 			this.shown = gameState.score;
 			this.score.setText(this.shown);
 		}
+		if (this.hop > 0) {
+			this.hop -= dt;
+			if (this.hop <= 0) {
+				this.score.glyphEffect = null;
+			}
+		}
 		return super.update(dt);
 	}
+
+	/** points just landed in the score */
+	bump() {
+		// assigned again, so that its clock starts over
+		this.score.glyphEffect = hop;
+		this.hop = HOP;
+	}
 }
+
+/** the score hops up and back down, a pixel of the original at a time */
+const hop: GlyphEffect = (out, ctx) => {
+	const k = Math.min(ctx.time / HOP, 1);
+	out.offsetY = -Math.round(Math.sin(k * Math.PI) * 2) * 4;
+};
+const HOP = 200;
 
 /************************************************************************************/
 /*      the bouncing "let's go!" sign, and the level name                           */
