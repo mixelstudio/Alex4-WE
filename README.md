@@ -25,15 +25,17 @@ for points, hearts for energy and eggs to spit at the enemies. Jump on an enemy
 to knock it out, or step on a roll block to turn into a ball and smash through
 ice blocks.
 
-|          | Keyboard                    | Gamepad          |
-| -------- | --------------------------- | ---------------- |
-| Move     | <kbd>←</kbd> <kbd>→</kbd>   | stick or D-pad   |
-| Jump     | <kbd>X</kbd>, <kbd>Space</kbd> or <kbd>↑</kbd> | <kbd>A</kbd> |
-| Spit     | <kbd>Z</kbd>, <kbd>C</kbd> or <kbd>Enter</kbd> | <kbd>B</kbd> or <kbd>X</kbd> |
-| Pause    | <kbd>P</kbd>                | <kbd>Start</kbd> |
-| Menu     | <kbd>Esc</kbd>              | <kbd>Select</kbd> |
+|       | Keyboard                                       | Gamepad                      | Touch               |
+| ----- | ---------------------------------------------- | ---------------------------- | ------------------- |
+| Move  | <kbd>←</kbd> <kbd>→</kbd>                      | stick or D-pad               | the stick on screen |
+| Jump  | <kbd>X</kbd>, <kbd>Space</kbd> or <kbd>↑</kbd> | <kbd>A</kbd>                 | <kbd>A</kbd>        |
+| Spit  | <kbd>Z</kbd>, <kbd>C</kbd> or <kbd>Enter</kbd> | <kbd>B</kbd> or <kbd>X</kbd> | <kbd>B</kbd>        |
+| Pause | <kbd>P</kbd>                                   | <kbd>Start</kbd>             | <kbd>II</kbd>       |
+| Menu  | <kbd>Esc</kbd>                                 | <kbd>Select</kbd>            |                     |
 
-The menus also take a click or a tap, and so does the intro, to skip it.
+The menus also take a click or a tap, and so does the intro, to skip it. On a
+touch screen, the controls are drawn over the game
+([@melonjs/gamepad-plugin](https://www.npmjs.com/package/@melonjs/gamepad-plugin)).
 
 Tip from the original manual: try to collect all the stars and cherries on
 every level.
@@ -48,8 +50,8 @@ every level.
 - **2026** – the Web Edition is rebuilt on melonJS 20 and completed from the
   original game's source and data: all 12 levels, as the original has them,
   the remaining enemies, both guardians, egg spitting, the intro and the
-  ending. It plays with a keyboard, a gamepad or, in the menus, a mouse or a
-  finger, and goes full screen.
+  ending. It plays with a keyboard, a gamepad or the touch controls of a
+  phone or a tablet, and goes full screen.
 
 ## Running it
 

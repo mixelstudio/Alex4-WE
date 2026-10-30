@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Alex the Allegator 4 – Web Edition · free HTML5 platformer made with melonJS</title>
-	<meta name="description" content="Play Alex the Allegator 4 free in your browser: the 2003 Free Lunch Design jump'n'run, modernized in HTML5 with melonJS. The original design, all 12 levels, both guardians, the intro and the ending, with added game feel. Keyboard or gamepad, nothing to install.">
+	<meta name="description" content="Play Alex the Allegator 4 free in your browser: the 2003 Free Lunch Design jump'n'run, modernized in HTML5 with melonJS. The original design, all 12 levels, both guardians, the intro and the ending, with added game feel. Keyboard, gamepad or touch, nothing to install.">
 	<meta name="keywords" content="Alex the Allegator 4, Alex4, Free Lunch Design, Johan Peitz, retro platformer, jump and run, browser game, HTML5 game, melonJS, Game Boy style">
 	<meta name="author" content="Olivier Biot">
 	<meta name="robots" content="index, follow">
@@ -213,29 +213,9 @@
 			text-align: center;
 		}
 
-		/* the corner ribbon, without the 2012 image */
-		.ribbon {
-			position: fixed;
-			top: 34px;
-			right: -46px;
-			z-index: 2;
-			width: 200px;
-			padding: 4px 0;
-			transform: rotate(45deg);
-			background: var(--frame);
-			border-top: 1px solid rgba(255, 255, 255, 0.6);
-			border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-			font-size: 12px;
-			font-weight: bold;
-			text-align: center;
-			text-decoration: none;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-		}
-
 		@media (max-width: 520px) {
 			body { padding: 16px 16px 32px; font-size: 14px; }
 			.panel { padding: 16px 12px; }
-			.ribbon { display: none; }
 			.keys { grid-template-columns: 1fr; gap: 0 0; }
 			.keys dd { margin-bottom: 8px; }
 		}
@@ -246,7 +226,6 @@
 </head>
 
 <body>
-	<a class="ribbon" href="https://github.com/mixelstudio/Alex4-WE">Fork me on GitHub</a>
 
 	<main class="panel">
 		<header>
@@ -294,6 +273,8 @@
 				<dd><kbd>←</kbd> <kbd>→</kbd> move, <kbd>X</kbd>, <kbd>Space</kbd> or <kbd>↑</kbd> jump, <kbd>Z</kbd>, <kbd>C</kbd> or <kbd>Enter</kbd> spit, <kbd>P</kbd> pause, <kbd>Esc</kbd> back to the menu</dd>
 				<dt>Gamepad</dt>
 				<dd>stick or D-pad to move, <kbd>A</kbd> jump, <kbd>B</kbd> or <kbd>X</kbd> spit, <kbd>Start</kbd> pause, <kbd>Select</kbd> back to the menu</dd>
+				<dt>Touch</dt>
+				<dd>on a phone or a tablet, the stick on the screen moves, <kbd>A</kbd> jumps, <kbd>B</kbd> spits and <kbd>II</kbd> pauses</dd>
 				<dt>Menus</dt>
 				<dd>arrows and <kbd>Enter</kbd>, or click and tap; <kbd>Esc</kbd>, a click or a tap skips the intro</dd>
 			</dl>

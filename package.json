@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"@melonjs/debug-plugin": "^16.2.0",
+		"@melonjs/gamepad-plugin": "^1.0.1",
 		"melonjs": "^20.12.0"
 	},
 	"devDependencies": {
