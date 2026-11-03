@@ -56,7 +56,7 @@ import { shaders } from "./shaders";
 import { go, initTransitions } from "./transition";
 
 export const createGame = async (): Promise<Application> => {
-	// 4 times the original 160x120 resolution
+	// the screen size: see constants.ts
 	const app = new Application(WIDTH, HEIGHT, {
 		parent: "screen",
 		scale: "auto",
@@ -93,7 +93,6 @@ export const createGame = async (): Promise<Application> => {
 	// a touch of modern shading
 	shaders.init(app);
 
-	// initialize the "audio"
 	audio.init("mp3,ogg");
 
 	// set all resources to be loaded

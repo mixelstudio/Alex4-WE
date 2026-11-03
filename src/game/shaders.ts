@@ -18,6 +18,7 @@ import {
 	VignetteEffect,
 	WaveEffect,
 } from "melonjs";
+import { PALETTE, rgb } from "./constants";
 
 // how far the water ripples to each side, in pixels, and how many rows of
 // pixels make one ripple
@@ -26,27 +27,28 @@ const RIPPLE_ROWS = 24;
 
 /**
  * A few shaders on top of the original look, made once and shared by
- * everything using them (they do nothing on the Canvas renderer).
+ * everything using them (they do nothing on the Canvas renderer). They need
+ * the renderer: set by init(), before anything uses them.
  */
-export const shaders = {
+class Shaders {
 	// the farthest jungle layer is a little out of focus
-	blur: undefined as unknown as BlurEffect,
+	blur!: BlurEffect;
 	// the two jungle layers sway in the breeze, the nearest one a bit faster
-	far: undefined as unknown as SwayEffect,
-	near: undefined as unknown as SwayEffect,
+	far!: SwayEffect;
+	near!: SwayEffect;
 	// a glint running over the stars and the title
-	shine: undefined as unknown as ShineEffect,
+	shine!: ShineEffect;
 	// a dark shadow under the menu text, to read it over the jungle
-	shadow: undefined as unknown as DropShadowEffect,
+	shadow!: DropShadowEffect;
 	// the points flying from a pickup into the score: dark (a text tint
 	// would darken the outline with them), with a light outline, to read on
 	// the light and the dark parts of the jungle alike
-	dark: undefined as unknown as FlashEffect,
-	outline: undefined as unknown as OutlineEffect,
+	dark!: FlashEffect;
+	outline!: OutlineEffect;
 	// the water of the current level ripples (made for each level: its
 	// strength depends on the size of the layer)
-	water: undefined as WaveEffect | undefined,
-	app: undefined as unknown as Application,
+	water: WaveEffect | undefined;
+	app!: Application;
 
 	init(app: Application) {
 		this.app = app;
@@ -68,18 +70,18 @@ export const shaders = {
 		this.shadow = new DropShadowEffect(app.renderer, {
 			offsetX: 4,
 			offsetY: 4,
-			color: [0.05, 0.27, 0],
+			color: rgb(PALETTE[0]),
 			opacity: 0.85,
 		});
 		this.dark = new FlashEffect(app.renderer, {
-			// the darkest green of the game (#0c4400), all over
-			color: [12 / 255, 68 / 255, 0],
+			// the darkest green of the game, all over
+			color: rgb(PALETTE[0]),
 			intensity: 1,
 		});
 		this.outline = new OutlineEffect(app.renderer, {
 			// the lightest green of the game (#deeed2), a pixel of the 24 pixel
 			// font wide
-			color: [222 / 255, 238 / 255, 210 / 255],
+			color: rgb(PALETTE[3]),
 			width: 3,
 		});
 		for (const effect of [
@@ -115,7 +117,7 @@ export const shaders = {
 				this.water.setTime(seconds);
 			}
 		});
-	},
+	}
 
 	/**
 	 * bring the jungle of the current screen to life: the far layer out of
@@ -136,5 +138,7 @@ export const shaders = {
 			});
 			water.addPostEffect(this.water);
 		}
-	},
-};
+	}
+}
+
+export const shaders = new Shaders();

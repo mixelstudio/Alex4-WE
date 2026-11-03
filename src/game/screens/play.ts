@@ -25,6 +25,7 @@ import { bindPads, PLAY_PAD, unbindPads } from "../gamepad";
 import { gameState } from "../gameState";
 import { shaders } from "../shaders";
 import { go, pixelate } from "../transition";
+import { currentMap } from "./current";
 
 // the custom properties of our Tiled maps
 export type LevelMap = TMXTileMap & {
@@ -33,7 +34,7 @@ export type LevelMap = TMXTileMap & {
 	win?: number;
 };
 
-/* the in game stuff */
+/** a level being played */
 export class PlayScreen extends Stage {
 	private app!: Application;
 	private hud: HUD | undefined;
@@ -92,7 +93,7 @@ export class PlayScreen extends Stage {
 		level.load(LEVELS[gameState.level], {
 			container: this.app.world,
 			onLoaded: () => {
-				const map = level.getCurrentLevel() as LevelMap;
+				const map = currentMap();
 				shaders.jungle(this.app.world);
 				if (firstTry) {
 					this.app.world.addChild(new LetsGoMessage(map.label), 101);
@@ -104,7 +105,7 @@ export class PlayScreen extends Stage {
 
 	/** a short jingle, then the level (or boss) song */
 	private playLevelSong() {
-		const map = level.getCurrentLevel() as LevelMap;
+		const map = currentMap();
 		// the menu song was the track until now: the jingle plays alone
 		audio.stopTrack();
 		const name = map.boss ? "boss_start" : "level_start";
@@ -201,9 +202,8 @@ export class PlayScreen extends Stage {
 	 * once over waits)
 	 */
 	private resumeJingle(resume: boolean) {
-		// by its id, and only while it plays: audio.resume() starts a sound
-		// that is not paused from the beginning, so P played the jingles again
-		// over the song
+		// by its id, and only while it plays: audio.resume() would start a
+		// sound that is not paused again from the beginning
 		if (!this.jingle) {
 			return;
 		}
@@ -218,7 +218,7 @@ export class PlayScreen extends Stage {
 	/** exit reached, or guardian defeated */
 	onLevelComplete() {
 		this.stopLevelSong();
-		// through go(), so that it waits for a death reload behind the pixels
+		// through go(): ignored while a death reload is behind the pixels
 		go(state.READY);
 	}
 

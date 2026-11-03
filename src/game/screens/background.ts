@@ -3,7 +3,7 @@
  * Port of "Alex the Allegator 4" (c) 2003 Johan Peitz / Free Lunch Design.
  * GPL-2.0-or-later, as is the original game — see `LICENSE`.
  */
-import { type Application, ImageLayer, Tween, Vector2d } from "melonjs";
+import { type Application, audio, ImageLayer, Tween, Vector2d } from "melonjs";
 import { shaders } from "../shaders";
 
 /**
@@ -43,4 +43,14 @@ export function addParallaxBackground(app: Application) {
 	app.viewport.setBounds(0, 0, 1e7, app.viewport.height);
 	app.viewport.moveTo(0, 0);
 	new Tween(app.viewport.pos).to({ x: 1e6 }, { duration: 2e7 }).start();
+}
+
+/**
+ * the menu song, shared by the title and the credits: on going from one to
+ * the other it plays on
+ */
+export function playMenuSong() {
+	if (audio.getCurrentTrack() !== "menu_song") {
+		audio.playTrack("menu_song");
+	}
 }
