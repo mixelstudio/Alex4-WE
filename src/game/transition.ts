@@ -1,0 +1,76 @@
+/**
+ * Alex the Allegator 4 — Web Edition.
+ * Port of "Alex the Allegator 4" (c) 2003 Johan Peitz / Free Lunch Design.
+ * GPL-2.0-or-later, as is the original game — see `LICENSE`.
+ */
+import { type Application, PixelateTransitionEffect, state } from "melonjs";
+import { FADE_COLOR } from "./constants";
+
+/*---------------------------------------------------------------------
+
+	The screen breaks up into big pixels, changes behind the biggest of
+	them, and comes back.
+
+  ---------------------------------------------------------------------	*/
+
+// the biggest blocks, at the middle of a transition (8 pixels of the original)
+const BIGGEST = 32;
+// how long the screen takes to break up, and as long to come back
+const HALF = 300;
+
+let app: Application;
+// a level is reloading behind the pixels: a change of screen asked for now is
+// ignored, or the level would land on the next screen (level.load defers it a
+// frame)
+let busy = false;
+
+/**
+ * every change of screen goes through the pixels, but for the level complete
+ * one, which comes straight after the level
+ */
+export function initTransitions(application: Application) {
+	app = application;
+	state.transition("pixelate", FADE_COLOR, HALF, BIGGEST);
+	state.setTransition(state.READY, false);
+}
+
+/**
+ * go to another screen, through the pixels (asked again while they cover the
+ * screen, the last screen asked for wins)
+ */
+export function go(stateId: number) {
+	if (!busy) {
+		state.change(stateId);
+	}
+}
+
+/** do something on the same screen, behind the biggest pixels */
+export function pixelate(middle: () => void) {
+	if (busy) {
+		return;
+	}
+	busy = true;
+	const options = { renderer: app.renderer, size: BIGGEST, duration: HALF };
+	const camera = app.viewport;
+	const cover = new PixelateTransitionEffect(camera, {
+		...options,
+		onComplete: () => {
+			camera.removeCameraEffect(cover);
+			middle();
+			// persistent, and taken away by itself: a level reload resets the
+			// camera a frame later (level.load defers it), which drops every
+			// other effect, and `busy` would stay set
+			const reveal = new PixelateTransitionEffect(app.viewport, {
+				...options,
+				direction: "reveal",
+				onComplete: () => {
+					app.viewport.removeCameraEffect(reveal);
+					busy = false;
+				},
+			});
+			reveal.isPersistent = true;
+			app.viewport.addCameraEffect(reveal);
+		},
+	});
+	camera.addCameraEffect(cover);
+}

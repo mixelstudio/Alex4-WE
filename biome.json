@@ -1,0 +1,12 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"files": {
+		"includes": ["**", "!**/dist", "!**/public", "!**/scripts"]
+	},
+	"formatter": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": { "preset": "recommended" }
+	}
+}

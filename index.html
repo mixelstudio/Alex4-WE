@@ -1,52 +1,310 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-	<title>Alex the Allegator 4 - web edition</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Alex the Allegator 4 – Web Edition · free HTML5 platformer made with melonJS</title>
+	<meta name="description" content="Play Alex the Allegator 4 free in your browser: the 2003 Free Lunch Design jump'n'run, modernized in HTML5 with melonJS. The original design, all 12 levels, both guardians, the intro and the ending, with added game feel. Keyboard, gamepad or touch, nothing to install.">
+	<meta name="keywords" content="Alex the Allegator 4, Alex4, Free Lunch Design, Johan Peitz, retro platformer, jump and run, browser game, HTML5 game, melonJS, Game Boy style">
+	<meta name="author" content="Olivier Biot">
+	<meta name="robots" content="index, follow">
+	<meta name="theme-color" content="#567890">
+	<link rel="canonical" href="https://mixelstudio.github.io/Alex4-WE/">
+
+	<!-- shared links: Facebook, Discord, Slack, LinkedIn... -->
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Alex the Allegator 4 – Web Edition">
+	<meta property="og:title" content="Alex the Allegator 4 – Web Edition, made with melonJS">
+	<meta property="og:description" content="The 2003 Free Lunch Design platformer, all 12 levels, playable free in your browser. Made with melonJS.">
+	<meta property="og:url" content="https://mixelstudio.github.io/Alex4-WE/">
+	<meta property="og:image" content="https://mixelstudio.github.io/Alex4-WE/images/og.png">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Alex the allegator jumping through the jungle">
+	<meta property="og:locale" content="en_US">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Alex the Allegator 4 – Web Edition, made with melonJS">
+	<meta name="twitter:description" content="The 2003 Free Lunch Design platformer, all 12 levels, playable free in your browser. Made with melonJS.">
+	<meta name="twitter:image" content="https://mixelstudio.github.io/Alex4-WE/images/og.png">
+
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+	<!-- what search engines show about the game -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "VideoGame",
+		"name": "Alex the Allegator 4 – Web Edition",
+		"alternateName": ["Alex4 WE", "Alex 4"],
+		"url": "https://mixelstudio.github.io/Alex4-WE/",
+		"image": "https://mixelstudio.github.io/Alex4-WE/images/og.png",
+		"description": "An HTML5 remake of Alex the Allegator 4, the 2003 Free Lunch Design jump'n'run: guide Alex through the jungle and save Lola. All 12 levels, both guardians, the intro and the ending. Made with the melonJS HTML5 game engine.",
+		"keywords": "Alex the Allegator 4, Alex4, retro platformer, browser game, HTML5 game, melonJS",
+		"mentions": { "@type": "SoftwareApplication", "name": "melonJS", "applicationCategory": "Game engine", "url": "https://melonjs.org/" },
+		"genre": ["Platformer", "Retro"],
+		"gamePlatform": "Web browser",
+		"applicationCategory": "Game",
+		"operatingSystem": "Any",
+		"playMode": "SinglePlayer",
+		"numberOfPlayers": { "@type": "QuantitativeValue", "value": 1 },
+		"inLanguage": "en",
+		"isAccessibleForFree": true,
+		"offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+		"license": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+		"author": { "@type": "Person", "name": "Olivier Biot" },
+		"codeRepository": "https://github.com/mixelstudio/Alex4-WE",
+		"isBasedOn": {
+			"@type": "VideoGame",
+			"name": "Alex the Allegator 4",
+			"datePublished": "2003",
+			"url": "https://allegator.sourceforge.net",
+			"author": { "@type": "Person", "name": "Johan Peitz" },
+			"musicBy": { "@type": "Person", "name": "Anders Svensson" },
+			"publisher": { "@type": "Organization", "name": "Free Lunch Design", "url": "http://www.freelunchdesign.com/" }
+		}
+	}
+	</script>
+
+	<style>
+		/* the 2012 page, in today's markup: tiled blue, a black frame, Verdana */
+		:root {
+			--blue: #567890;
+			--frame: #000;
+			--text: #fff;
+			--dim: #d6e2ea;
+			/* the game's own four colors, for what sits on the game */
+			--leaf-dark: #0c4400;
+			--leaf-light: #deeed2;
+			/* the game is 832x480: the panel fits it at its own size */
+			--panel: 880px;
+			color-scheme: dark;
+		}
+		* { box-sizing: border-box; }
+		html { -webkit-text-size-adjust: 100%; }
+		body {
+			margin: 0;
+			padding: 24px 16px 40px;
+			background: var(--blue) url("images/background.gif");
+			image-rendering: pixelated;
+			color: var(--text);
+			font: 15px/1.6 Verdana, Tahoma, sans-serif;
+		}
+		a { color: var(--text); }
+		a:hover { text-decoration-thickness: 2px; }
+		img { image-rendering: pixelated; }
+
+		.panel {
+			max-width: var(--panel);
+			margin: 0 auto;
+			padding: 24px 20px;
+			background: var(--blue);
+			border: 2px solid var(--frame);
+			box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25);
+		}
+		h1 { margin: 0 0 4px; text-align: center; line-height: 0; }
+		h1 img { width: 100%; max-width: 531px; height: auto; }
+		.edition {
+			margin: 8px 0 20px;
+			text-align: center;
+			letter-spacing: 0.3em;
+			text-transform: uppercase;
+			font-size: 12px;
+			color: var(--dim);
+		}
+		h2 {
+			margin: 28px 0 8px;
+			font-size: 15px;
+			letter-spacing: 0.15em;
+			text-transform: uppercase;
+		}
+		p { margin: 0 0 12px; }
+
+		/* the game in its frame, with the fullscreen button over its top right
+		   corner, the way itch.io does it (the score is in the bottom right).
+		   The frame is what goes fullscreen, and what melonJS fits the game
+		   into: 832x480 inside a 2px border */
+		#game {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			aspect-ratio: 836 / 484;
+			margin: 4px 0 8px;
+			background: #000;
+			border: 2px solid var(--frame);
+			overflow: hidden;
+		}
+		#game:fullscreen { border: 0; aspect-ratio: auto; }
+		/* no fullscreen in this browser: the frame covers the window instead */
+		#game.maximized {
+			position: fixed;
+			inset: 0;
+			z-index: 10;
+			width: auto;
+			margin: 0;
+			border: 0;
+			aspect-ratio: auto;
+		}
+		body:has(#game.maximized) { overflow: hidden; }
+		#screen canvas { display: block; }
+		#fullscreen {
+			position: absolute;
+			top: 8px;
+			right: 8px;
+			z-index: 1;
+			display: grid;
+			place-items: center;
+			width: 36px;
+			height: 36px;
+			padding: 0;
+			border: 2px solid var(--leaf-dark);
+			background: var(--leaf-dark);
+			color: var(--leaf-light);
+			cursor: pointer;
+			opacity: 0.6;
+			transition: opacity 0.2s;
+		}
+		#fullscreen[hidden] { display: none; }
+		#fullscreen:hover, #fullscreen:focus-visible { opacity: 1; }
+		#fullscreen:focus-visible { outline: 2px solid var(--leaf-light); outline-offset: 2px; }
+		#fullscreen svg { width: 20px; height: 20px; }
+		#fullscreen .exit { display: none; }
+		#fullscreen[aria-pressed="true"] .enter { display: none; }
+		#fullscreen[aria-pressed="true"] .exit { display: block; }
+		.hint { text-align: center; font-size: 12px; color: var(--dim); }
+
+		.keys {
+			display: grid;
+			grid-template-columns: max-content 1fr;
+			gap: 4px 16px;
+			margin: 0 0 12px;
+		}
+		.keys dt { font-weight: bold; }
+		.keys dd { margin: 0; }
+		kbd {
+			display: inline-block;
+			min-width: 1.6em;
+			padding: 0 5px;
+			border: 1px solid var(--frame);
+			border-bottom-width: 2px;
+			background: rgba(0, 0, 0, 0.2);
+			font: 12px/1.6 Verdana, Tahoma, sans-serif;
+			text-align: center;
+		}
+		.credits {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+			gap: 12px 20px;
+			margin: 0 0 12px;
+			padding: 0;
+			list-style: none;
+		}
+		.credits strong { display: block; }
+		.credits span { color: var(--dim); font-size: 13px; }
+
+		footer {
+			margin-top: 28px;
+			padding-top: 16px;
+			border-top: 2px solid rgba(0, 0, 0, 0.35);
+			font-size: 12px;
+			color: var(--dim);
+			text-align: center;
+		}
+
+		@media (max-width: 520px) {
+			body { padding: 16px 16px 32px; font-size: 14px; }
+			.panel { padding: 16px 12px; }
+			.keys { grid-template-columns: 1fr; gap: 0 0; }
+			.keys dd { margin-bottom: 8px; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			#fullscreen { transition: none; }
+		}
+	</style>
 </head>
 
-<body bgproperties=fixed bgcolor=#567890 background="images/background.gif" text=white link=white vlink=white alink=white>
-<a href="https://github.com/obiot/Alex4-WE"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
-<font face="verdana,tahoma,sansserif">
-<table width=640 cellpadding=2 cellspacing=0 align=center bgcolor=black>
-<tr><td align=center>
+<body>
 
-<table width=640 cellpadding=8 cellspacing=0 align=center bgcolor=#567890>
-<tr><td align=center>
-<br>
-<img src="data/sprites/alex_logo.gif">
-</td></tr>
-<tr><td>
-A WIP HTML5 remake of the classic "Alex the allegator 4" game, available <a href="http://allegator.sourceforge.net/">here</a> and created by Johan Peitz from <a href="http://www.freelunchdesign.com">free lunch design</a>. Alex 4 WE, includes the first 6 levels of the original game, and has been developed using the <a href="http://www.melonjs.org">melonJS</a> library, a free HTML5 game engine.<br><br>
+	<main class="panel">
+		<header>
+			<h1><img src="images/alex_logo.gif" width="531" height="50" alt="Alex the Allegator 4"></h1>
+			<p class="edition">Web Edition</p>
+		</header>
 
-<div id="jsapp">
-<!--	<script type="text/javascript" src="lib/jquery-1.4.4-min.js"></script>
-	<script type="text/javascript" src="http://alex4.tapjs.com/api/js"></script> -->
-	<script type="text/javascript" src="lib/melonJS-0.9.8.js"></script>
-	<script type="text/javascript" src="lib/plugins/debugPanel.js"></script>
-	<script type="text/javascript" src="game/entities.js"></script>
-	<script type="text/javascript" src="game/screens.js"></script>
-	<script type="text/javascript" src="game/assets.js"></script>
-	<script type="text/javascript" src="game/main.js"></script>
-</div>
-<p>
-<center>This is a <a href="http://www.chromeexperiments.com/detail/alex-the-allegator-4/">Chrome Experiment</a>.</center>
-<p>
-For those familiar with the original game, please keep in mind that this is a WIP remake, meaning that the game won't be totally identical to the original game and lacks a few things since I did not have access to the original game stuff (e.g. no intro, only 6 levels for now, sprites/animations not 100% accurate)
-<p>
-Fore more informations about how to play and credits for the <b>original</b> game, please see the following <a href="readme.html">page</a>.
-<p>
-<center>
-Enjoy :)
-</center>
-</td></tr>
-</table>
+		<p>
+			An HTML5 remake of the classic <a href="https://allegator.sourceforge.net">Alex the Allegator 4</a>,
+			created in 2003 by Johan Peitz of <a href="http://www.freelunchdesign.com/">Free Lunch Design</a>.
+			Lola has been captured by evil humans who want to make a bag of her: guide Alex through the jungle and save her!
+			This edition has the whole game, all 12 levels, both guardians, the intro and the ending,
+			and was made with <a href="https://melonjs.org/">melonJS</a>, a free HTML5 game engine.
+		</p>
+		<p>
+			It is a modernized Alex 4 that stays true to the original: the same levels, the same four-color
+			graphics, music and rules, at the original's pace. What it adds is game feel: Alex squashes as he
+			lands, the action freezes for a split second on every stomp and every blow to a guardian, the screen shakes
+			on the big impacts, pickups sparkle, dust flies,
+			the ball leaves a trail, the jungle sways, the water ripples and the screen breaks into big pixels
+			between scenes.
+		</p>
 
-</td></tr>
-</table>
+		<div id="game">
+			<div id="screen"></div>
+			<button id="fullscreen" type="button" title="Full screen" aria-label="Full screen" aria-pressed="false" hidden>
+				<svg class="enter" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M2 7V2h5M13 2h5v5M18 13v5h-5M7 18H2v-5"/></svg>
+				<svg class="exit" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 2v5H2M18 7h-5V2M13 18v-5h5M2 13h5v5"/></svg>
+			</button>
+			<noscript>
+				<p style="padding: 24px">Alex the Allegator 4 needs JavaScript to run in your browser.</p>
+			</noscript>
+		</div>
+		<p class="hint">Click or tap the game to turn the sound on.</p>
 
-<p>
+		<section>
+			<h2>How to play</h2>
+			<p>
+				Every level has an exit that Alex must find. On the way, eat stars and cherries for points,
+				hearts for energy and eggs to spit at the enemies. Jump on an enemy to knock it out,
+				or step on a roll block to turn into a ball and smash through ice blocks.
+			</p>
+			<dl class="keys">
+				<dt>Keyboard</dt>
+				<dd><kbd>←</kbd> <kbd>→</kbd> move, <kbd>X</kbd>, <kbd>Space</kbd> or <kbd>↑</kbd> jump, <kbd>Z</kbd>, <kbd>C</kbd> or <kbd>Enter</kbd> spit, <kbd>P</kbd> pause, <kbd>Esc</kbd> back to the menu</dd>
+				<dt>Gamepad</dt>
+				<dd>stick or D-pad to move, <kbd>A</kbd> jump, <kbd>B</kbd> or <kbd>X</kbd> spit, <kbd>Start</kbd> pause, <kbd>Select</kbd> back to the menu</dd>
+				<dt>Touch</dt>
+				<dd>on a phone or a tablet, the stick on the screen moves, <kbd>A</kbd> jumps, <kbd>B</kbd> spits and <kbd>II</kbd> pauses</dd>
+				<dt>Menus</dt>
+				<dd>arrows and <kbd>Enter</kbd>, or click and tap; <kbd>Esc</kbd>, a click or a tap skips the intro</dd>
+			</dl>
+			<p>
+				Tip from the original manual: try to collect all the stars and cherries on every level.
+			</p>
+		</section>
 
+		<section>
+			<h2>Credits</h2>
+			<ul class="credits">
+				<li><strong>Johan Peitz</strong> <span>original game: design, code and graphics</span></li>
+				<li><strong>Anders Svensson</strong> <span>original music and sound effects</span></li>
+				<li><strong>Free Lunch Design</strong> <span>original game, 2003</span></li>
+				<li><strong>Olivier Biot</strong> <span>Web Edition, 2012–2026</span></li>
+				<li><strong><a href="https://melonjs.org/">melonJS</a></strong> <span>the HTML5 game engine it runs on, <a href="https://github.com/melonjs/melonJS">open source on GitHub</a></span></li>
+			</ul>
+		</section>
 
+		<footer>
+			Alex the Allegator 4 © 2003 Johan Peitz, Free Lunch Design.
+			The original game and this Web Edition are free software, released under the
+			<a href="https://github.com/mixelstudio/Alex4-WE/blob/master/LICENSE">GNU GPL, version 2 or later</a>.
+			<br>
+			<a href="https://github.com/mixelstudio/Alex4-WE">Source code</a> ·
+			<a href="https://allegator.sourceforge.net">The original game</a> ·
+			Made with <a href="https://melonjs.org/">melonJS</a>
+		</footer>
+	</main>
+
+	<script type="module" src="./src/main.ts"></script>
 </body>
 </html>
-
